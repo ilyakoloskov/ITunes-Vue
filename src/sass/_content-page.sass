@@ -1,0 +1,103 @@
+// VARIABLES
+// DESKTOP
+$d-content-h1: 38
+$d-content-h2: 34
+$d-content-h2: 30
+$d-content-h3: 26
+$d-content-h4: 22
+$d-content-h5: 18
+$d-content-h6: 16
+
+$d-content-p: 16
+
+// MOBILE
+$m-content-h1: 36
+$m-content-h2: 32
+$m-content-h2: 28
+$m-content-h3: 24
+$m-content-h4: 20
+$m-content-h5: 16
+$m-content-h6: 15
+
+$m-content-p: 12
+.content-page
+    & > *
+        line-height: 1.7
+        font-weight: 300
+
+.content-page
+    h1,h2,h3,h4,h5,h6
+        color: $white
+        font-family: $montserrat
+        margin-bottom: 20px
+        font-weight: bold
+
+    h1
+        @include responsive-font($d-content-h1, $m-content-h1)
+    h2
+        @include responsive-font($d-content-h2, $m-content-h2)
+    h3
+        @include responsive-font($d-content-h3, $m-content-h3)
+    h4
+        @include responsive-font($d-content-h4, $m-content-h4)
+    h5
+        @include responsive-font($d-content-h5, $m-content-h5)
+    h6
+        @include responsive-font($d-content-h6, $m-content-h6)
+    p
+        color: $grey
+        font-family: $montserrat
+
+        @include responsive-font($d-content-p, $m-content-p)
+
+    strong
+        font-weight: bold
+    em
+        font-style: italic
+
+    ul,ol
+        list-style-position: inside
+        padding-inline-start: 40px
+        color: $grey
+        font-family: $montserrat
+
+        li
+            margin-bottom: 5px
+    ol
+        list-style: decimal
+    ul
+        list-style: disc
+    a
+        color: $grey
+        border-bottom: 1px solid $red
+    pre
+        color: $grey
+
+.gutenberg
+.description__body
+    font-family: $montserrat
+
+.description__body h1,
+.description__body h2,
+.description__body h3,
+.description__body h4,
+.description__body h5,
+.description__body h6
+    color: $white
+    line-height: 2.15
+
+.description__body p
+    line-height: 2.15
+
+.description__body .wp-block-image
+    height: 100%
+
+.description__body figure img
+    height: 100%
+    object-fit: cover
+
+.description__body iframe
+    width: 100%
+
+.description__body .wp-block-embed-youtube iframe
+    min-height: 400px

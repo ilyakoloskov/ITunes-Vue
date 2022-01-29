@@ -1,0 +1,105 @@
+a
+    text-decoration: none
+    color: $color-text
+
+button,
+input,
+.btn
+    outline: 0
+    border: none
+    box-sizing: border-box
+    background: none
+    padding: 0
+    cursor: pointer
+    border-radius: 4px
+
+.d-none
+    display: none
+
+
+.search
+    cursor: initial
+    color: $color-text
+    background-color: $color-header-btn
+    &::placeholder
+        color: $color-alternate
+
+.visually-hidden
+    position: absolute
+    clip: rect(1px, 1px, 1px, 1px)
+    padding: 0
+    border: 0
+    height: 1px
+    width: 1px
+    overflow: hidden
+
+// INPUT   
+input[type='range'] 
+    -webkit-appearance: none
+    background: none
+    margin: 0 !important
+    position: relative
+
+    &:focus 
+        outline: none
+    &::-webkit-slider-thumb
+        position: relative
+        z-index: 1
+    &::-webkit-slider-runnable-track 
+        background-color: $color-header
+        height: 5px
+    &::-webkit-slider-runnable-track 
+        position: relative 
+    &::before 
+        content: " "
+        position: absolute
+        left: 0
+        top: 0
+        height: 100%
+        -webkit-box-shadow: 0px 1px 2px 0px rgba(34, 60, 80, 0.46) inset
+        -moz-box-shadow: 0px 1px 2px 0px rgba(34, 60, 80, 0.46) inset
+        box-shadow: 0px 1px 2px 0px rgba(34, 60, 80, 0.46) inset
+        background-color: $color-header-range
+        cursor: pointer
+        z-index: 1
+        
+
+#track-volume
+    &::before 
+        width: var(--range-value-track-volume)
+        border-radius: 4px
+
+ 
+.input-volumes
+    align-self: center
+    &::-moz-range-track 
+        background: #000
+        height: 3px
+    &::-webkit-slider-runnable-track 
+        border-radius: 4px
+        background-color: $color-background !important
+    &::-webkit-slider-thumb 
+        -webkit-appearance: none
+        height: 15px
+        width: 15px
+        background-color: $color-text
+        margin-top: -6px
+        border-radius: 50%
+        cursor: pointer
+    &::-moz-range-thumb 
+        height: 15px
+        width: 15px
+        background-color: $color-text
+        margin-top: -6px
+        border-radius: 50%
+        cursor: pointer
+
+
+
+
+.img-cover
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+

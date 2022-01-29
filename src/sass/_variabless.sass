@@ -1,0 +1,29 @@
+@import _fonts
+
+// COLOR
+$color-backgroudn-section: rgba(30,30,30,1)
+$color-background: rgba(23,23,23,1) // black
+$color-text: rgba(223,223,223,1)  // white
+$color-primary: rgba(16,107,255,1) // blue 
+$color-secondary: rgba(38,38,38,1) // grey
+$color-alternate: rgba(151,151,151, 1)  //dark grey
+
+
+$color-header: rgba(65,65,65,1)
+$color-header-track: rgba(37,37,37,1)
+$color-header-btn: rgba(91,91,91,1)
+$color-header-range: rgba(190,190,190,1)
+$color-header-search: rgba(108,108,108,1)
+$color-header-btn-active: rgba(157,157,157,1)
+
+$colors: ("background": $color-background,"text": $color-text, "primary": $color-primary, "secondary": $color-secondary, "alternate": $color-alternate)
+
+// COLOR
+@each $name, $color in $colors 
+        .color-#{$name} 
+                color: $color
+        
+//BACKGROUND
+@each $name, $color in $colors 
+        .bg-#{$name} 
+                background-color: $color

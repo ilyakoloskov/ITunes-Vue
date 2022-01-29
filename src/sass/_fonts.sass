@@ -1,0 +1,88 @@
+// FONT
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap')
+
+
+$font-roboto: 'Source Sans Pro', sans-serif
+
+// FONT-SIZE-DESKTOP
+$d-h1: 48
+$d-h2: 34
+$d-h3: 22
+$d-h4: 18
+$d-h5: 16
+$d-h6: 14
+
+$d-display-18: 18
+$d-display-16: 16
+$d-display-14: 14
+$d-display-12: 12
+
+// FONT-SIZE-MOBILE
+$m-h1: 28
+$m-h2: 34
+$m-h3: 18
+$m-h4: 16
+$m-h5: 14
+$m-h6: 12
+
+$m-display-18: 18
+$m-display-14: 14
+$m-display-12: 12
+$m-display-10: 10
+
+$maxWidth: 1980
+@mixin responsive-font($desktopSize, $mobileSize)
+
+    $addSize: $desktopSize - $mobileSize
+    $addMobileSize: $addSize + $addSize * 0.7
+    @media (max-width: 767px)
+        font-size: calc(#{$mobileSize + px} + #{$addMobileSize} * ((100vw - 320px) / #{$maxWidth}))
+
+    @media (min-width: 767px)
+        font-size: calc(#{$mobileSize + px} + #{$addSize} * (100vw / #{$maxWidth}))
+
+.h1
+    @include responsive-font($d-h1, $m-h1)
+    letter-spacing: 0.5px
+.h2
+    @include responsive-font($d-h2, $m-h2)
+    letter-spacing: 0.5px
+.h3
+    @include responsive-font($d-h3, $m-h3)
+    letter-spacing: 0.5px
+.h4
+    @include responsive-font($d-h4, $m-h4)
+    letter-spacing: 0.5px
+.h5
+    @include responsive-font($d-h5, $m-h5)
+    letter-spacing: 0.5px
+.h6
+    @include responsive-font($d-h6, $m-h6)
+    letter-spacing: 0.5px
+
+.display-1
+    @include responsive-font($d-display-18, $m-display-18)
+    line-height: 1.5
+.display-2
+    @include responsive-font($d-display-16, $m-display-14)
+    line-height: 1.5
+.display-3
+    @include responsive-font($d-display-14, $m-display-12)
+
+.display-4
+    @include responsive-font($d-display-12, $m-display-10)
+
+.title,
+.subtitle
+    letter-spacing: 0.5px
+
+.title
+    line-height: 1.5
+    @include responsive-font($d-h1, $m-h3)
+
+.text-center
+    text-align: center
+.text-left
+    text-align: left
+.text-right
+    text-align: right
