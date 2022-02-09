@@ -5,53 +5,94 @@ export default createStore({
 
     // Глобальное хранилище, все данные обяьвленные внутри state, доступны всем компонентам
     state(){
-        return {
-            trackIndex: 0,
-            tracks:
-              [
+      return {
+          audio: new Audio("./assets/audio/Aite, bet.mp3"),
+          trackIndex: 0,
+          isPlaying: false,
+          isSelected: {},
+          // Массив альбомов
+          dataBase: [
+            {
+              artistName: "$uicideboy$",
+              albumName: "Dark Side Of The Clouds",
+              albumCover: "./assets/covers/darkSideOfTheClouds.png",
+              audio: 
                 {
-                  artistName: "$uicideboys",
-                  trackName: "Aite, bet",
-                  trackCover: "./assets/covers/darkSideOfTheClouds.png",
-                  trackAudio: "./assets/audio/Aite, bet.mp3",
-                  trackId: 0,
+                  'Aite, Bet': './assets/audio/Aite, bet.mp3',
+                  'Antarctica': './assets/audio/Antarctica.mp3'
                 },
+            },
+            {
+              artistName: "Slaughter To Prevail",
+              albumName: "Zavali Ebalo",
+              albumCover: "./assets/covers/kostolom.jpg",
+              audio: 
+              {
+                "Bonebreaker": "./assets/audio/Bonebreaker.mp3"
+              },
+            },
+            {
+              artistName: "Mick Gordon",
+              albumName: "Doom",
+              albumCover: "./assets/covers/doom.jpg",
+              audio: 
                 {
-                  artistName: "Slaughter To Prevail",
-                  trackName: "Zavali Ebalo",
-                  trackCover: "./assets/covers/kostolom.jpg",
-                  trackAudio: "./assets/audio/Bonebreaker.mp3",
-                  trackId: 1,
+                  "Vega Core": "./assets/audio/VegaCore.mp3"
                 },
-              ]
-          }; 
+            },
+          ],
+        }; 
     },
     // Обьект, для обьявление функций изменяющий state
     // Для вызова нужной мутации в нужном компоненте используется commit
     mutations: {
-      prevTrack(state){
-        state.trackIndex--
+      setIsPlaying(getters){
+        getters.isPlaying = !getters.isPlaying
       },
-      nextTrack(state){
-        state.trackIndex++
+      setIsSelected(getters, selected){
+        getters.isSelected = selected
+        console.log(getters.isSelected)
+      },
+      playTrack(getters){
+        getters.isPlaying ? getters.audio.play() : getters.audio.pause()
+        console.log(`track: ${getters.audio.src} ${getters.isPlaying}`)
+      },
+      setVolumeAudio(getters, value){
+        getters.isVolumeAudio = value
       }
+      // setPlayTrack(state, selected){
+      //   state.isSelected.audio = selected
+      //   console.log(selected)
+      // },
     },
     // Геттер нужен для того, чтобы не обращаться напрямую к state, тк его изменение может привести к неккоректной работе приложения
     // Трансформируем данные, не трансформируя state
     getters: {
-      trackIndex(state){
+      isTrackIndex(state){
         return state.trackIndex
       },
-      tracks(state){
-        return state.tracks
+      isDataBase(state){
+        return state.dataBase
+      },
+      isSelected(state){
+        return state.isSelected
+      },
+      isPlaying(state){
+        return state.isPlaying
+      },
+      isAudio(state){
+        return state.audio
+      },
+      isVolumeAudio(state){
+        return state.audio.volume 
       }
-      // trackIndex(state){
-      //   if(state.trackIndex >= state.tracks.length){
-      //     return state.trackIndex = 0
-      //   }else if(state.trackIndex < 0){
-      //     return state.trackIndex = 0
-      //   }
-      // },
-
+    },
+    actions:{
+      actionIsPlaying(context){
+        context.commit('setIsPlaying')
+      },
+      actionPlayTrack(context){
+        context.commit('setPlayTrack')
+      },
     }
 })
