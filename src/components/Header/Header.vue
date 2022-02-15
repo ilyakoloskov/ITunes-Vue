@@ -5,21 +5,21 @@
       <div class="header__player">
         <MediaButton type="prev" />
         <MediaButton
-          @click="setIsPlaying(),playTrack()"
-          :type="isPlaying ? 'pause' : 'play'"
+          @click="SET_PLAYING(), PLAY_TRACK()"
+          :type="IS_PLAYING ? 'pause' : 'play'"
         />
         <MediaButton type="next" />
       </div>
       <input
-        v-model="setVolumeAudio"
-        
+        :value="IS_AUDIO.volume"
+        @input="updateAuidoVolume"
         class="input-volumes range"
         id="track-volume"
         type="range"
         min="0"
         max="100"
       />
-      {{isVolumeAudio * 100}}
+      {{ IS_AUDIO.volume }}
     </div>
     <!-- HEADER-TRACK -->
     <div class="header__track bg-secondary header-inner">
@@ -28,7 +28,7 @@
           id="track-cover"
           class="header__track-img"
           :style="{
-            backgroundImage: 'url(' + isSelected.albumCover + ')',
+            backgroundImage: 'url(' + IS_SELECTED.albumCover + ')',
           }"
         ></div>
         <div class="header__track-wrap">
@@ -52,7 +52,7 @@
                 id="track-artist"
                 class="header__track-artist color-text display-3"
               >
-                {{ isSelected.artistName }}
+                {{ IS_SELECTED.artistName }}
               </h3>
               <button id="track-repeat" class="header__track-btn">
                 <svg
@@ -118,7 +118,7 @@
 
 <script>
 import MediaButton from "@/components/buttons/MediaButton.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -131,20 +131,17 @@ export default {
   },
   computed: {
     ...mapGetters([
-        "isPlaying",
-        "isSelected",
-        "isAudio",
-        "isVolumeAudio"
+        "IS_PLAYING",
+        "IS_SELECTED",
+        "IS_AUDIO",
+        "IS_VOLUME_AUDIO",
     ]),
   },
   methods: {
-    ...mapMutations([
-        "setIsPlaying",
-        "setPlayTrack",
-        "playTrack",
-        "setIsAudio",
-        "setVolumeAudio",
-    ]),
+    ...mapActions([
+      "SET_PLAYING",
+      "PLAY_TRACK"
+    ])
     
   },
 };

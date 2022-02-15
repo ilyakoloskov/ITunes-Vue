@@ -2,10 +2,18 @@
     <section class="main-view">
       <div
         class="album display-3" 
-        v-for="album in isDataBase"
+        v-for="album in IS_DATA_BASE"
         :key="album"
-        @click="setIsSelected(album)"
+        @click="SET_SELECTED(album, name)"
         > 
+        <template 
+          v-for="(src, name, index) in album.audio"
+          :key="name"
+          :index="index"
+          >
+          {{index}}: {{name + ":"}} {{src}}<br>
+        </template>
+        
         <div
           class="album__img-wrap">
           <img 
@@ -20,19 +28,20 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
     export default {
         data(){
             
         },
         methods: {
-          ...mapMutations([
-            'setIsSelected'
+          ...mapActions([
+            'SET_SELECTED'
           ]),
         },
         computed: {
           ...mapGetters([
-            'isDataBase',
+            'IS_DATA_BASE',
+            'IS_SELECTED'
           ])
         },
     }

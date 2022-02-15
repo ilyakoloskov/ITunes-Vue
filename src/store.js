@@ -10,6 +10,7 @@ export default createStore({
           trackIndex: 0,
           isPlaying: false,
           isSelected: {},
+          audioVolume: 80,
           // Массив альбомов
           dataBase: [
             {
@@ -24,7 +25,7 @@ export default createStore({
             },
             {
               artistName: "Slaughter To Prevail",
-              albumName: "Zavali Ebalo",
+              albumName: "Kostolom",
               albumCover: "./assets/covers/kostolom.jpg",
               audio: 
               {
@@ -46,53 +47,53 @@ export default createStore({
     // Обьект, для обьявление функций изменяющий state
     // Для вызова нужной мутации в нужном компоненте используется commit
     mutations: {
-      setIsPlaying(getters){
-        getters.isPlaying = !getters.isPlaying
+      SET_PLAYING(state){
+        state.isPlaying = !state.isPlaying
       },
-      setIsSelected(getters, selected){
-        getters.isSelected = selected
-        console.log(getters.isSelected)
+      SET_SELECTED(state, album){
+        state.isSelected = album
+        console.log(state.isSelected)
+
+        // getters.isSelected = album
+        // getters.isSelected.audio.src = selected.audio
+        // getters.isSelected = selected.audio
       },
-      playTrack(getters){
-        getters.isPlaying ? getters.audio.play() : getters.audio.pause()
-        console.log(`track: ${getters.audio.src} ${getters.isPlaying}`)
+      PLAY_TRACK(state){
+        state.isPlaying ? state.audio.play() : state.audio.pause()
+        console.log(`track: ${state.audio.src} ${state.isPlaying}`)
       },
-      setVolumeAudio(getters, value){
-        getters.isVolumeAudio = value
-      }
-      // setPlayTrack(state, selected){
-      //   state.isSelected.audio = selected
-      //   console.log(selected)
-      // },
     },
     // Геттер нужен для того, чтобы не обращаться напрямую к state, тк его изменение может привести к неккоректной работе приложения
     // Трансформируем данные, не трансформируя state
     getters: {
-      isTrackIndex(state){
+      IS_TRACK_INDEX: (state) => {
         return state.trackIndex
       },
-      isDataBase(state){
+      IS_DATA_BASE: (state) => {
         return state.dataBase
       },
-      isSelected(state){
+      IS_SELECTED: (state) => {
         return state.isSelected
       },
-      isPlaying(state){
+      IS_PLAYING: (state) => {
         return state.isPlaying
       },
-      isAudio(state){
+      IS_AUDIO: (state) => {
         return state.audio
       },
-      isVolumeAudio(state){
-        return state.audio.volume 
+      IS_VOLUME_AUDIO: (state) => {
+        return state.audio.volume * 100
       }
     },
     actions:{
-      actionIsPlaying(context){
-        context.commit('setIsPlaying')
+      SET_PLAYING(context, playing){
+        context.commit('SET_PLAYING', playing)
       },
-      actionPlayTrack(context){
-        context.commit('setPlayTrack')
+      PLAY_TRACK(context){
+        context.commit('PLAY_TRACK')
       },
+      SET_SELECTED(context, album){
+        context.commit('SET_SELECTED', album)
+      }
     }
 })
