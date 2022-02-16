@@ -8,7 +8,7 @@
           @click="SET_PLAYING(), PLAY_TRACK()"
           :type="IS_PLAYING ? 'pause' : 'play'"
         />
-        <MediaButton type="next" />
+        <MediaButton @click="NEXT_TRACK()" type="next" />
       </div>
       <input
         :value="IS_AUDIO.volume"
@@ -77,6 +77,7 @@
                 id="track-name"
                 class="header__track-name color-alternate display-3"
               >
+                {{ this.$store.state.trackName }}
               </h3>
               <span id="track-time-end" class="header__track-time">
                 00:00
@@ -84,8 +85,7 @@
             </div>
           </div>
           <div id="progress-bar" class="header__progress">
-            <div id="track-duration" class="header__progress-bar">
-            </div>
+            <div id="track-duration" class="header__progress-bar"></div>
           </div>
         </div>
       </div>
@@ -122,27 +122,16 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   components: {
     MediaButton,
   },
   computed: {
-    ...mapGetters([
-        "IS_PLAYING",
-        "IS_SELECTED",
-        "IS_AUDIO",
-        "IS_VOLUME_AUDIO",
-    ]),
+    ...mapGetters(["IS_PLAYING", "IS_SELECTED", "IS_AUDIO", "IS_VOLUME_AUDIO"]),
   },
   methods: {
-    ...mapActions([
-      "SET_PLAYING",
-      "PLAY_TRACK"
-    ])
-    
+    ...mapActions(["SET_PLAYING", "PLAY_TRACK", "NEXT_TRACK"]),
   },
 };
 </script>
