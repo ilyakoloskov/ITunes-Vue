@@ -14,6 +14,7 @@
       <input
         v-model="this.$store.state.audioVolume"
         @input="UPDATE_VOLUME($event)"
+        :style="{'--range-value-track-volume': this.$store.state.audioVolume * 100 +'%'}"
         class="input-volumes range"
         id="track-volume"
         type="range"
@@ -72,7 +73,7 @@
             </div>
             <div class="header__track-inner display-4">
               <span id="track-time-start" class="header__track-time">
-                00:00
+                00:00 
               </span>
               <h3
                 id="track-name"
@@ -86,8 +87,12 @@
             </div>
           </div>
           <div id="progress-bar" class="header__progress">
-            <div id="track-duration" class="header__progress-bar"></div>
+            <div 
+              :style="{'width': Math.trunc(this.$store.state.audio.currentTime / this.$store.state.audio.duration * 100)+'%'}"
+              id="track-duration"
+              class="header__progress-bar"></div>
           </div>
+          {{}}
         </div>
       </div>
       <div v-else class="header__track-slot">
@@ -144,4 +149,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="sass">
+#track-volume
+    &::before 
+        width: var(--range-value-track-volume)
+        border-radius: 4px
+</style>

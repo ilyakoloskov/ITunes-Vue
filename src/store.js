@@ -18,11 +18,9 @@ export default createStore({
       //   }
       // },
       audio: new Audio(),
-      audioVolume: 80,
       trackIndex: 0,
       isPlaying: false,
       isSelected: null,
-      isAudioVolume: 100,
       // Массив альбомов
       dataBase: [
         {
@@ -67,12 +65,12 @@ export default createStore({
       state.audio.src = trackSrc[trackIndex];
       state.trackName = trackName[trackIndex];
       state.audio.play()
-      console.log(state.audio.src);
-      console.log(state.audio.volume)
     },
     PLAY_TRACK(state) {
       if(state.IS_SELECTED !== null ){
         state.isPlaying ? state.audio.play() : state.audio.pause();
+        // let trackDuration = (state.audio.duration* 1.64).toFixed() 
+        // console.log(trackDuration)
         console.log(`track: ${state.audio.src} ${state.isPlaying}`);
         console.log('Альбом выбран, играем его')
       }else{
@@ -100,7 +98,6 @@ export default createStore({
     UPDATE_VOLUME(state, event){
       let volume = Math.abs(event.target.value)
       state.audio.volume = volume
-      
     }
   },
   // Геттер нужен для того, чтобы не обращаться напрямую к state, тк его изменение может привести к неккоректной работе приложения
@@ -122,7 +119,7 @@ export default createStore({
       return state.audio;
     },
     IS_AUDIO_VOLUME: (state) => {
-      return state.audio.volume * 100;
+      return state.audio.volume;
     },
   },
   actions: {
