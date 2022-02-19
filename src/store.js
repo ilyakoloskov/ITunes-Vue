@@ -6,13 +6,23 @@ export default createStore({
   // Глобальное хранилище, все данные обяьвленные внутри state, доступны всем компонентам
   state() {
     return {
-      trackSrc: "",
-      trackName: "",
+      // player: {
+      //   settings: {
+      //     audio: new Audio(),
+      //     volume: 80,
+      //     trackIndex: 0,
+      //   },
+      //   get: {
+      //     isPlaying: false,
+      //     isSelected: null,
+      //   }
+      // },
       audio: new Audio(),
+      audioVolume: 80,
       trackIndex: 0,
       isPlaying: false,
-      isSelected: {},
-      audioVolume: 80,
+      isSelected: null,
+      isAudioVolume: 100,
       // Массив альбомов
       dataBase: [
         {
@@ -56,11 +66,18 @@ export default createStore({
       let trackSrc = Object.values(state.isSelected.audio);
       state.audio.src = trackSrc[trackIndex];
       state.trackName = trackName[trackIndex];
+      state.audio.play()
       console.log(state.audio.src);
+      console.log(state.audio.volume)
     },
     PLAY_TRACK(state) {
-      state.isPlaying ? state.audio.play() : state.audio.pause();
-      console.log(`track: ${state.audio.src} ${state.isPlaying}`);
+      if(state.IS_SELECTED !== null ){
+        state.isPlaying ? state.audio.play() : state.audio.pause();
+        console.log(`track: ${state.audio.src} ${state.isPlaying}`);
+        console.log('Альбом выбран, играем его')
+      }else{
+        console.log('Я заиграю рандомным треком, если ничего не выбрано')
+      }
     },
     NEXT_TRACK(state) {
       state.trackIndex++;
@@ -68,8 +85,23 @@ export default createStore({
       let trackSrc = Object.values(state.isSelected.audio);
       state.audio.src = trackSrc[state.trackIndex];
       state.trackName = trackName[state.trackIndex];
+      state.audio.play()
       console.log(state.audio.src);
     },
+    PREV_TRACK(state){
+      state.trackIndex--;
+      let trackName = Object.keys(state.isSelected.audio);
+      let trackSrc = Object.values(state.isSelected.audio);
+      state.audio.src = trackSrc[state.trackIndex];
+      state.trackName = trackName[state.trackIndex];
+      state.audio.play()
+      console.log(state.audio.src);
+    },
+    UPDATE_VOLUME(state, event){
+      let volume = Math.abs(event.target.value)
+      state.audio.volume = volume
+      
+    }
   },
   // Геттер нужен для того, чтобы не обращаться напрямую к state, тк его изменение может привести к неккоректной работе приложения
   // Трансформируем данные, не трансформируя state
@@ -89,7 +121,7 @@ export default createStore({
     IS_AUDIO: (state) => {
       return state.audio;
     },
-    IS_VOLUME_AUDIO: (state) => {
+    IS_AUDIO_VOLUME: (state) => {
       return state.audio.volume * 100;
     },
   },
@@ -106,5 +138,11 @@ export default createStore({
     NEXT_TRACK(context) {
       context.commit("NEXT_TRACK");
     },
+    PREV_TRACK(context) {
+      context.commit("PREV_TRACK");
+    },
+    UPDATE_VOLUME(context, event){
+      context.commit("UPDATE_VOLUME", event)
+    }
   },
 });

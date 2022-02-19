@@ -8,6 +8,8 @@
 
 /* ================================= PRESETS ================================= */
 @import _presets
+*
+    box-sizing: border-box
 
 body
     height: 100%
@@ -41,7 +43,11 @@ body
         justify-content: space-between
         gap: 10px
     &__track
-
+        &-slot
+            display: flex
+            place-content: center
+            height: 100%
+            border-bottom: 1px solid $color-header
         &-track
             display: flex
             background-color: $color-header-track
