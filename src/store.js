@@ -21,6 +21,7 @@ export default createStore({
       trackIndex: 0,
       isPlaying: false,
       isSelected: null,
+      isAudioDuration: null,
       // Массив альбомов
       dataBase: [
         {
@@ -98,7 +99,7 @@ export default createStore({
     UPDATE_VOLUME(state, event){
       let volume = Math.abs(event.target.value)
       state.audio.volume = volume
-    }
+    },
   },
   // Геттер нужен для того, чтобы не обращаться напрямую к state, тк его изменение может привести к неккоректной работе приложения
   // Трансформируем данные, не трансформируя state
@@ -140,6 +141,6 @@ export default createStore({
     },
     UPDATE_VOLUME(context, event){
       context.commit("UPDATE_VOLUME", event)
-    }
+    },
   },
 });
