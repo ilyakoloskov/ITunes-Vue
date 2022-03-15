@@ -26,7 +26,8 @@ export default {
   },
   components: {
     IAlbum
-  }
+  },
+  emits: ["selectedAlbum"],
 };
 </script>
 

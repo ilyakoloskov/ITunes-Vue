@@ -2,7 +2,10 @@
   <i-header 
     :isSelected='isSelected'
     :isPlaying='isPlaying'
+    :isVolume="isVolume"
+    @updateVolume="$emit('updateVolume', $event)"
     @playTrack="$emit('playTrack', $event)"
+    @prevTrack="$emit('prevTrack', $event)"
     @nextTrack="$emit('nextTrack', $event)"/>
   <main class="main bg-background">
     <i-sidebar />
@@ -38,8 +41,8 @@ export default {
     isPlaying:{
       type: Boolean
     },
-    isVolume: {
-      type: Number
+    isVolume:{
+      type: String
     }
   },
   components: {
@@ -52,10 +55,8 @@ export default {
       console.log(album)
       this.$emit('selectedAlbum', album)
     },
-    isVolumeUpdate(value){
-      console.log(value)
-    }
-  }
+  },
+  emits: ["nextTrack","prevTrack", "playTrack"], 
 };
 </script>
 
