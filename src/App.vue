@@ -78,6 +78,7 @@ export default {
       if (!this.isPlaying) {
         this.isPlaying = true;
         this.audio.play();
+        console.log(Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration))
         if(Object.keys(this.isSelected).length == 0){
           this.isPlaying = false;
           console.log('Играет рандомный трек')

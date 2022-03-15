@@ -88,6 +88,7 @@
             <div class="header__track-inner display-4">
               <span id="track-time-start" class="header__track-time">
                 <!-- {{trackDuration}} -->
+                00:00
               </span>
               <h3
                 id="track-name"
@@ -96,7 +97,9 @@
                 {{ isSelected.trackName }}
               </h3>
               <span id="track-time-end" class="header__track-time">
+                <!-- {{(Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration)}} -->
                 00:00
+                {{audioDuration}}
               </span>
             </div>
           </div>
@@ -108,9 +111,6 @@
               ></div> -->
               <div id="track-duration" class="header__progress-bar"
               type='range'
-              :style="{
-                width: updateDurationTrack + '%'
-              }"
               ></div>
           </div>
           
@@ -167,7 +167,7 @@ export default {
   name: "i-header",
   data() {
     return {
-      updateDurationTrack: 0
+      audioDuration: ''
     };
   },
   props: {
@@ -189,15 +189,13 @@ export default {
     IInput,
   },
   computed: {
-    // trackDuration: function(){
-    //   return typeof(this.isAudio)
-    // }
+
   },
   methods: {
   },
   watch: {
-    updateDurationTrack: function(){
-      console.log(this.audio.duration)
+    audioDuration(){
+      Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration)
     }
   },
   emits: ["nextTrack","prevTrack", "playTrack", "updateVolume"],
