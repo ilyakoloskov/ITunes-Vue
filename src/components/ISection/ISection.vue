@@ -13,7 +13,6 @@ import IAlbum from './IAlbum'
 
 export default {
   name: 'i-section',
-  data() {},
   props: {
     albums: {
       type: Array,

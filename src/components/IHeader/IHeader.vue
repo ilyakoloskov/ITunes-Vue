@@ -22,13 +22,20 @@
           '--range-value-track-volume': volume * 100 + '%',
         }"
       /> -->
-      <IRange 
+      <IInput 
         @input="$emit('updateVolume', $event.target.value)"
-        :value="isVolume"
+        class="input-volumes range"
+        :value="audio.volume"
+        id="track-volume"
+        min="0"
+        max="1"
+        step="0.01"
+        type="range"
         :style="{
-          '--range-value-track-volume': isVolume * 100 + '%',
+          '--range-value-track-volume': audio.volume * 100 + '%',
         }"
       />
+      
     </div>
     <!-- HEADER-TRACK -->
     <div class="header__track bg-secondary header-inner">
@@ -80,7 +87,7 @@
             </div>
             <div class="header__track-inner display-4">
               <span id="track-time-start" class="header__track-time">
-                {{trackDuration}}
+                <!-- {{trackDuration}} -->
               </span>
               <h3
                 id="track-name"
@@ -94,7 +101,17 @@
             </div>
           </div>
           <div id="progress-bar" class="header__progress">
-            <div id="track-duration" class="header__progress-bar"></div>
+            <!-- <div id="track-duration" class="header__progress-bar"
+              :style="{
+                width: updateDurationTrack + '%'
+              }"
+              ></div> -->
+              <div id="track-duration" class="header__progress-bar"
+              type='range'
+              :style="{
+                width: updateDurationTrack + '%'
+              }"
+              ></div>
           </div>
           
         </div>
@@ -133,7 +150,7 @@
           />
         </svg>
       </button>
-      <input
+      <IInput
         id="search"
         class="header__helper-search search"
         type="text"
@@ -145,11 +162,12 @@
 
 <script>
 import IButton from "@/components/IButtons/IButton.vue";
-import IRange from "@/components/IButtons/IRange.vue"
+import IInput from "@/components/IButtons/IInput.vue"
 export default {
   name: "i-header",
   data() {
     return {
+      updateDurationTrack: 0
     };
   },
   props: {
@@ -160,20 +178,29 @@ export default {
       type: Boolean,
     },
     isVolume:{
-      type: String
+      type: Number,
+    },
+    audio:{
+      type: Object
     }
   },
   components: {
     IButton,
-    IRange
+    IInput,
   },
   computed: {
     // trackDuration: function(){
     //   return typeof(this.isAudio)
     // }
   },
-  methods: {},
-  emits: ["nextTrack","prevTrack", "playTrack"],
+  methods: {
+  },
+  watch: {
+    updateDurationTrack: function(){
+      console.log(this.audio.duration)
+    }
+  },
+  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume"],
 };
 </script>
 

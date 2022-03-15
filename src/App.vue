@@ -4,7 +4,7 @@
     :isPlaying="isPlaying"
     :isVolume="isVolume"
     :albums="albums"
-    :isAudio="isAudio"
+    :audio="audio"
     @updateVolume="updateVolume"
     @selectedAlbum="selected"
     @prevTrack="prevTrack"
@@ -28,7 +28,7 @@ export default {
       isPlaying: false,
       isSelected: {},
       isAudioDuration: null,
-      isVolume: String,
+      isVolume: 0,
       // Массив альбомов
       albums: [
         {
@@ -78,35 +78,38 @@ export default {
       if (!this.isPlaying) {
         this.isPlaying = true;
         this.audio.play();
-      } else {
+        if(Object.keys(this.isSelected).length == 0){
+          this.isPlaying = false;
+          console.log('Играет рандомный трек')
+        }
+      }
+      else {
         this.isPlaying = false;
         this.audio.pause();
       }
     },
     nextTrack() {
       let trackArray = Object.keys(this.isSelected.audio);
-      let trackName = trackArray[this.trackIndex++];
+      let trackName = trackArray[++this.trackIndex];
       this.isSelected.trackName = trackName;
       this.audio.src = this.isSelected.audio[trackName];
+      console.log(trackArray)
       console.log(this.isSelected.trackName);
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
     prevTrack() {
       let trackArray = Object.keys(this.isSelected.audio);
-      let trackName = trackArray[this.trackIndex--];
+      let trackName = trackArray[--this.trackIndex];
       this.isSelected.trackName = trackName;
       this.audio.src = this.isSelected.audio[trackName];
       console.log(this.isSelected.trackName);
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
     updateVolume(value){
-      this.isVolume = value
-      this.audio.volume = value
+      this.isVolume = +value
+      this.audio.volume = +value
       console.log(this.audio.volume)
     },
-    isAudio(){
-      console.log(this.audio.duration)
-    }
   },
 };
 </script>

@@ -3,6 +3,7 @@
     :isSelected='isSelected'
     :isPlaying='isPlaying'
     :isVolume="isVolume"
+    :audio="audio"
     @updateVolume="$emit('updateVolume', $event)"
     @playTrack="$emit('playTrack', $event)"
     @prevTrack="$emit('prevTrack', $event)"
@@ -42,7 +43,10 @@ export default {
       type: Boolean
     },
     isVolume:{
-      type: String
+      type: Number,
+    },
+    audio:{
+      type: Object
     }
   },
   components: {
@@ -56,7 +60,7 @@ export default {
       this.$emit('selectedAlbum', album)
     },
   },
-  emits: ["nextTrack","prevTrack", "playTrack"], 
+  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum'], 
 };
 </script>
 

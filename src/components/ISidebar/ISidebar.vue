@@ -29,7 +29,6 @@
 <script>
 export default {
   name: "i-sidebar",
-  data() {},
 };
 </script>
 
