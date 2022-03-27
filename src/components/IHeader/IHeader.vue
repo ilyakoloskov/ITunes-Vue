@@ -3,29 +3,17 @@
     <!-- HEADER-SETTINGS -->
     <div class="header__settings header-inner player">
       <div class="header__player">
-        <IButton type="prev" @click="$emit('prevTrack', $event)"/>
-        <IButton
+        <i-button type="prev" @click="$emit('prevTrack', $event)"/>
+        <i-button
           :type="isPlaying ? 'pause' : 'play'"
           @click.space="$emit('playTrack', $event)"
         />
-        <IButton type="next" @click="$emit('nextTrack', $event)" />
+        <i-button type="next" @click="$emit('nextTrack', $event)" />
       </div>
-      <!-- <input
-        v-model="volume"
-        class="input-volumes range"
-        id="track-volume"
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        :style="{
-          '--range-value-track-volume': volume * 100 + '%',
-        }"
-      /> -->
-      <IInput 
+      <i-input
         @input="$emit('updateVolume', $event.target.value)"
-        class="input-volumes range"
         :value="audio.volume"
+        class="input-volumes range"
         id="track-volume"
         min="0"
         max="1"
@@ -35,105 +23,16 @@
           '--range-value-track-volume': audio.volume * 100 + '%',
         }"
       />
-      
     </div>
     <!-- HEADER-TRACK -->
-    <div class="header__track bg-secondary header-inner">
-      <div v-if="isSelected.trackSelected" class="header__track-track">
-        <div
-          id="track-cover"
-          class="header__track-img"
-          :style="{
-            backgroundImage: 'url(' + isSelected.albumCover + ')',
-          }"
-        ></div>
-        <div class="header__track-wrap">
-          <div class="header__track-container">
-            <div class="header__track-inner">
-              <button id="track-mix" class="header__track-btn">
-                <svg
-                  width="20"
-                  height="16"
-                  viewBox="0 0 22 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0.338867 13.3564C0.338867 13.9805 0.804688 14.4199 1.47266 14.4199H3.54688C5.11133 14.4199 6.06055 13.9541 7.12402 12.6885L9.11914 10.3154L11.0791 12.6533C12.1689 13.9541 13.2412 14.4287 14.8145 14.4287H16.3789V16.3535C16.3789 16.8809 16.7129 17.2148 17.249 17.2148C17.4863 17.2148 17.7061 17.127 17.8818 16.9863L21.3447 14.1035C21.7754 13.752 21.7666 13.1807 21.3447 12.8291L17.8818 9.9375C17.7061 9.78809 17.4863 9.7002 17.249 9.7002C16.7129 9.7002 16.3789 10.0342 16.3789 10.5615V12.2842H14.8584C13.8652 12.2842 13.25 11.959 12.5293 11.1064L10.4902 8.68945L12.5381 6.25488C13.2676 5.38477 13.8301 5.08594 14.8057 5.08594H16.3789V6.83496C16.3789 7.3623 16.7129 7.69629 17.249 7.69629C17.4863 7.69629 17.7061 7.6084 17.8818 7.46777L21.3447 4.58496C21.7754 4.2334 21.7666 3.66211 21.3447 3.31055L17.8818 0.418945C17.7061 0.269531 17.4863 0.181641 17.249 0.181641C16.7129 0.181641 16.3789 0.515625 16.3789 1.04297V2.94141H14.8232C13.1973 2.94141 12.1689 3.39844 11.0176 4.78711L9.11914 7.0459L7.12402 4.68164C6.06055 3.41602 5.0498 2.94141 3.48535 2.94141H1.47266C0.804688 2.94141 0.338867 3.38965 0.338867 4.01367C0.338867 4.6377 0.813477 5.08594 1.47266 5.08594H3.40625C4.35547 5.08594 4.98828 5.40234 5.70898 6.26367L7.73926 8.68066L5.70898 11.1064C4.97949 11.9678 4.4082 12.2842 3.46777 12.2842H1.47266C0.813477 12.2842 0.338867 12.7324 0.338867 13.3564Z"
-                    fill="#1C1C1E"
-                  />
-                </svg>
-              </button>
-              <h3
-                id="track-artist"
-                class="header__track-artist color-text display-3"
-              >
-                {{ isSelected.artistName }}
-              </h3>
-              <button id="track-repeat" class="header__track-btn">
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.12988 12.8984C4.12988 13.5049 4.62207 13.9971 5.22852 13.9971C5.84375 13.9971 6.32715 13.5049 6.32715 12.8984V12.3271C6.32715 10.8945 7.31152 9.97168 8.80566 9.97168H15.4062V11.8086C15.4062 12.3359 15.7402 12.6699 16.2764 12.6699C16.5137 12.6699 16.7334 12.582 16.9092 12.4414L20.3721 9.55859C20.8027 9.21582 20.7939 8.63574 20.3721 8.28418L16.9092 5.39258C16.7334 5.24316 16.5137 5.15527 16.2764 5.15527C15.7402 5.15527 15.4062 5.48926 15.4062 6.0166V7.80957H8.98145C6.00195 7.80957 4.12988 9.4707 4.12988 12.1162V12.8984ZM12.5938 15.3066C12.5938 14.7793 12.2598 14.4365 11.7324 14.4365C11.4951 14.4365 11.2666 14.5332 11.0908 14.6738L7.63672 17.5566C7.20605 17.8994 7.20605 18.4707 7.63672 18.8311L11.0908 21.7227C11.2666 21.8721 11.4951 21.96 11.7324 21.96C12.2598 21.96 12.5938 21.626 12.5938 21.0986V19.2969H19.0273C22.0068 19.2969 23.8701 17.627 23.8701 14.9902V14.208C23.8701 13.5928 23.3867 13.1006 22.7715 13.1006C22.165 13.1006 21.6729 13.5928 21.6729 14.208V14.7793C21.6729 16.2031 20.6973 17.1348 19.1943 17.1348H12.5938V15.3066Z"
-                    fill="#1C1C1E"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div class="header__track-inner display-4">
-              <span id="track-time-start" class="header__track-time">
-                <!-- {{trackDuration}} -->
-                00:00
-              </span>
-              <h3
-                id="track-name"
-                class="header__track-name color-alternate display-3"
-              >
-                {{ isSelected.trackName }}
-              </h3>
-              <span id="track-time-end" class="header__track-time">
-                <!-- {{(Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration)}} -->
-                00:00
-                {{audioDuration}}
-              </span>
-            </div>
-          </div>
-          <div id="progress-bar" class="header__progress">
-            <!-- <div id="track-duration" class="header__progress-bar"
-              :style="{
-                width: updateDurationTrack + '%'
-              }"
-              ></div> -->
-              <div id="track-duration" class="header__progress-bar"
-              type='range'
-              ></div>
-          </div>
-          
-        </div>
-      </div>
-      <div v-else class="header__track-slot">
-        <svg
-          width="30px"
-          viewBox="0 0 256 315"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          preserveAspectRatio="xMidYMid"
-        >
-          <g>
-            <path
-              d="M213.803394,167.030943 C214.2452,214.609646 255.542482,230.442639 256,230.644727 C255.650812,231.761357 249.401383,253.208293 234.24263,275.361446 C221.138555,294.513969 207.538253,313.596333 186.113759,313.991545 C165.062051,314.379442 158.292752,301.507828 134.22469,301.507828 C110.163898,301.507828 102.642899,313.596301 82.7151126,314.379442 C62.0350407,315.16201 46.2873831,293.668525 33.0744079,274.586162 C6.07529317,235.552544 -14.5576169,164.286328 13.147166,116.18047 C26.9103111,92.2909053 51.5060917,77.1630356 78.2026125,76.7751096 C98.5099145,76.3877456 117.677594,90.4371851 130.091705,90.4371851 C142.497945,90.4371851 165.790755,73.5415029 190.277627,76.0228474 C200.528668,76.4495055 229.303509,80.1636878 247.780625,107.209389 C246.291825,108.132333 213.44635,127.253405 213.803394,167.030988 M174.239142,50.1987033 C185.218331,36.9088319 192.607958,18.4081019 190.591988,0 C174.766312,0.636050225 155.629514,10.5457909 144.278109,23.8283506 C134.10507,35.5906758 125.195775,54.4170275 127.599657,72.4607932 C145.239231,73.8255433 163.259413,63.4970262 174.239142,50.1987249"
-              fill="#979797"
-            ></path>
-          </g>
-        </svg>
-      </div>
-    </div>
+    <i-header-track
+      :isSelected='isSelected'
+      :isPlaying='isPlaying'
+      :isVolume="isVolume"
+      :audio="audio"
+      @updateVolume="$emit('updateVolume', $event)"
+      @updateProgress="$emit('updateProgress', $event)"
+    />
     <!-- HEADER-HELPER -->
     <div class="header__helper header-inner">
       <button class="header__helper-list">
@@ -150,7 +49,7 @@
           />
         </svg>
       </button>
-      <IInput
+      <i-input
         id="search"
         class="header__helper-search search"
         type="text"
@@ -161,13 +60,13 @@
 </template>
 
 <script>
-import IButton from "@/components/IButtons/IButton.vue";
-import IInput from "@/components/IButtons/IInput.vue"
+import IHeaderTrack from '@/components/IHeader/IHeaderTrack.vue'
+
 export default {
   name: "i-header",
   data() {
     return {
-      audioDuration: ''
+      audioProgress: ''
     };
   },
   props: {
@@ -185,20 +84,17 @@ export default {
     }
   },
   components: {
-    IButton,
-    IInput,
+    "i-header-track": IHeaderTrack
+  },
+  methods: {
   },
   computed: {
 
   },
-  methods: {
-  },
   watch: {
-    audioDuration(){
-      Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration)
-    }
+
   },
-  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume"],
+  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress"],
 };
 </script>
 

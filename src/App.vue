@@ -6,6 +6,7 @@
     :albums="albums"
     :audio="audio"
     @updateVolume="updateVolume"
+    @updateProgress="updateProgress"
     @selectedAlbum="selected"
     @prevTrack="prevTrack"
     @playTrack="playTrack"
@@ -27,7 +28,6 @@ export default {
       trackIndex: 0,
       isPlaying: false,
       isSelected: {},
-      isAudioDuration: null,
       isVolume: 0,
       // Массив альбомов
       albums: [
@@ -59,6 +59,16 @@ export default {
           },
           id: 3,
         },
+        {
+          artistName: "Heart In Hand",
+          albumName: "Only Memories",
+          albumCover: "./assets/covers/HeartInHand.jpeg",
+          audio: {
+            "Ghosts": "./assets/audio/Ghosts.mp3",
+            "September": "./assets/audio/September.mp3",
+          },
+          id: 4,
+        },
       ],
     };
   },
@@ -75,10 +85,16 @@ export default {
       this.isVolume = this.audio.volume 
     },
     playTrack() {
+      let time = setInterval(()=> { 
+          this.audioCurentTime = Math.floor(this.audio.currentTime)
+          this.isSelected.currentTime = Math.floor(this.audio.currentTime)
+          }, 1000 )
       if (!this.isPlaying) {
         this.isPlaying = true;
         this.audio.play();
-        console.log(Math.floor(this.audio.currentTime) + ' / ' + Math.floor(this.audio.duration))
+        // if(this.audio.currentTime > this.audio.duration){
+        //   console.log('Трек кончился')
+        // }   
         if(Object.keys(this.isSelected).length == 0){
           this.isPlaying = false;
           console.log('Играет рандомный трек')
@@ -87,6 +103,7 @@ export default {
       else {
         this.isPlaying = false;
         this.audio.pause();
+        clearInterval(time)
       }
     },
     nextTrack() {
@@ -109,7 +126,12 @@ export default {
     updateVolume(value){
       this.isVolume = +value
       this.audio.volume = +value
-      console.log(this.audio.volume)
+    },
+    updateProgress(value){
+      this.audio.currentTime = +value
+    },
+    repeat(){
+      this.audio.loop = true
     },
   },
 };

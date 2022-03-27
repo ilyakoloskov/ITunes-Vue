@@ -98,22 +98,25 @@ body
         &-bar
             position: relative
             height: inherit
-            width: 0%
+            width: 100%
+            top: -8px
             position: relative
             background-color: $color-header-range
             &::before
                 content: ""
                 position: absolute
+                width: var(--range-value-track-progress)
+                background-color: $color-header-range
+            &::-webkit-slider-thumb 
+                -webkit-appearance: none
                 height: 15px
-                width: 5px
-                border-radius: 15px
+                width: 8px
+                border-radius: 5px
                 border: 1px solid $color-header
-                top: 3px
-                z-index: 2
-                pointer-events: none
-                transform: translate(0px, -8px)
-                background: $color-text
-                right: -6px    
+                background-color: $color-text
+                cursor: pointer  
+                transform: translate(0px, -5px) 
+                z-index: 1
 
     &__helper
         display: flex

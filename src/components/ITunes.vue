@@ -5,6 +5,7 @@
     :isVolume="isVolume"
     :audio="audio"
     @updateVolume="$emit('updateVolume', $event)"
+    @updateProgress="$emit('updateProgress', $event)"
     @playTrack="$emit('playTrack', $event)"
     @prevTrack="$emit('prevTrack', $event)"
     @nextTrack="$emit('nextTrack', $event)"/>
@@ -60,7 +61,7 @@ export default {
       this.$emit('selectedAlbum', album)
     },
   },
-  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum'], 
+  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum',"updateProgress"], 
 };
 </script>
 
