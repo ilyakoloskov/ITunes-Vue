@@ -17,20 +17,21 @@ body
 
 #app
     color: $color-text
-    height: 100vh
+    min-height: 100vh
     display: grid
     grid-template-rows: auto 1fr
     background-color: var(--data-color-primary)
 
 
 .header
-    z-index: 10
+    position: sticky
+    top: 0
+    z-index: 99
     background-color: $color-header
     display: grid
     grid-template-columns: 1fr 1.3fr 1fr
     padding: 0 10px
     grid-gap: 10px
-    height: 55px
     -webkit-box-shadow: 0px -65px 100px 55px rgba(34, 60, 80, 0.28)
     -moz-box-shadow: 0px -65px 100px 55px rgba(34, 60, 80, 0.28)
     box-shadow: 0px -65px 100px 55px rgba(34, 60, 80, 0.28)
@@ -137,32 +138,35 @@ body
             width: 200px
             padding: 4px
 
-.main   
+
+.main
     display: grid
-    grid-template-columns: 1fr 7fr
-    overflow: hidden
-    background-color: $color-backgroudn-section
+    grid-template-columns: 200px 7fr    
+    position: relative
+    z-index: 10
    
     &-view
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
-        grid-template-rows: repeat(auto-fit, 240px)
-        display: grid
-        // height: max-content
         gap: 25px 10px
-        padding: 10px 50px
-        // overflow-y: scroll
         position: relative
         z-index: 10
-
+        overflow: hidden
+        &__row
+            overflow: hidden
         &__album
             height: 100px
             border-radius: 5px
             background-color: $color-header
+            &-wrapper
+                grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr))
+                grid-template-rows: repeat(auto-fit, 16vw)
+                display: grid
+                gap: 20px
+                padding: 10px 40px
+
 .album
     display: flex
     flex-direction: column
     gap: 8px
-    cursor: pointer
     &__wrapper-active
         grid-column: 1 / -1
         grid-row: 1/3
@@ -171,19 +175,15 @@ body
         height: 100%
         position: relative
         background-color: $color-background
-        border-top: 1px solid RGBA(50,50,50,1)
-        border-bottom: 1px solid RGBA(50,50,50,1)
+        // border-top: 1px solid RGBA(50,50,50,1)
+        // border-bottom: 1px solid RGBA(50,50,50,1)
 
         & .album
             padding: 20px
     &__img-wrap
-        border-radius: 10px
+        border-radius: 5px
         overflow: hidden
-        &:hover
-            outline: 2px solid $color-primary
-    // &__wrapper
-    //     height: 1000px
-    //     width: 100%
+        position: relative
 
 .sidebar
     padding: 1em 0 0 0
@@ -193,11 +193,15 @@ body
 .list
     &-name
         padding: 5px 10px
+        display: inline-block
+        margin-bottom: 10px
     &__li
-        padding: 7px 20px
+        padding: 0px 20px
         display: flex
         align-items: center
         gap: 7px
+        &:hover
+            background-color: $color-primary
     & a
         display: block
 

@@ -17,8 +17,8 @@
         methods: {
             updateCurrentTime(){
                 setInterval(()=>{
-                    this.hours = Math.floor(this.audio.currentTime / 60 / 60).toString().padStart(2, '0')
-                    this.minutes = (Math.floor(this.audio.currentTime / 60) - (Math.floor(this.audio.currentTime / 60 / 60) * 60)).toString().padStart(2, '0')
+                    this.hours = Math.floor(this.audio.currentTime / 60 / 60).toString().padStart(1, '0')
+                    this.minutes = (Math.floor(this.audio.currentTime / 60) - (Math.floor(this.audio.currentTime / 60 / 60) * 60)).toString().padStart(1, '0')
                     this.seconds = Math.floor(this.audio.currentTime % 60).toString().padStart(2, '0')
                 }, 50)
             }

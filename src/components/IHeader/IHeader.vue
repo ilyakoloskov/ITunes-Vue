@@ -26,7 +26,8 @@
     </div>
     <!-- HEADER-TRACK -->
     <i-header-track
-      :isSelected='isSelected'
+      :playing='playing'
+      :selected='selected'
       :isPlaying='isPlaying'
       :isVolume="isVolume"
       :audio="audio"
@@ -70,7 +71,10 @@ export default {
     };
   },
   props: {
-    isSelected: {
+    selected: {
+      type: Object,
+    },
+    playing: {
       type: Object,
     },
     isPlaying: {

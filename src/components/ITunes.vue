@@ -1,6 +1,7 @@
 <template>
   <i-header 
-    :isSelected='isSelected'
+    :selected='selected'
+    :playing="playing"
     :isPlaying='isPlaying'
     :isVolume="isVolume"
     :audio="audio"
@@ -11,17 +12,28 @@
     @nextTrack="$emit('nextTrack', $event)"/>
   <main class="main bg-background">
     <i-sidebar />
-    <i-section 
+    <i-section
+      :selected='selected' 
       :albums="albums"
+      :albumPlaylist="albumPlaylist"
+      :isPlaying='isPlaying'
+      :isShowPlaylist="isShowPlaylist"
       @selectedAlbum="selectedAlbum"
-      /> 
+      @playTrack="playTrack"
+      @showPlaylist="showPlaylist"
+
+      :albumsRows="albumsRows"
+    /> 
   </main>
+
+
 </template>
 
 <script>
 import IHeader from '@/components/IHeader/IHeader.vue'
 import ISidebar from '@/components/ISidebar/ISidebar.vue'
 import ISection from '@/components/ISection/ISection.vue'
+
 
 
 
@@ -37,8 +49,14 @@ export default {
       type: Array,
       required: true
     },
-    isSelected:{
+    albumPlaylist: {
       type: Object
+    },
+    selected:{
+      type: Object
+    },
+    playing: {
+      type: Object,
     },
     isPlaying:{
       type: Boolean
@@ -48,20 +66,31 @@ export default {
     },
     audio:{
       type: Object
+    },
+    isShowPlaylist: {
+      type: Number
+    },
+    albumsRows: {
+      type: Array
     }
   },
   components: {
     IHeader,
     ISection,
-    ISidebar
+    ISidebar,
   },
   methods: {
     selectedAlbum(album){
-      console.log(album)
       this.$emit('selectedAlbum', album)
     },
+    playTrack(event){
+      this.$emit('playTrack', event)
+    },
+    showPlaylist(album, index){
+      this.$emit('showPlaylist', album, index)
+    }
   },
-  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum',"updateProgress"], 
+  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum',"updateProgress","playAlbum","showPlaylist"], 
 };
 </script>
 

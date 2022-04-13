@@ -1,11 +1,11 @@
 <template>
   <div class="header__track bg-secondary header-inner">
-    <div v-if="isSelected.trackSelected" class="header__track-track">
+    <div v-if="playing.albumSelected" class="header__track-track">
       <div
         id="track-cover"
         class="header__track-img"
         :style="{
-          backgroundImage: 'url(' + isSelected.albumCover + ')',
+          backgroundImage: 'url(' + playing.albumCover + ')',
         }"
       ></div>
       <div class="header__track-wrap">
@@ -29,7 +29,7 @@
               id="track-artist"
               class="header__track-artist color-text display-3"
             >
-              {{ isSelected.artistName }}
+              {{ playing.artistName }}
             </h3>
             <button 
               @click="audioLoop"
@@ -57,7 +57,7 @@
               id="track-name"
               class="header__track-name color-alternate display-3"
             >
-              {{ isSelected.trackName }}
+              {{ playing.trackName }}
             </h3>
               <i-duration-time
                 :audio="audio"
@@ -113,7 +113,10 @@ export default {
     };
   },
   props: {
-    isSelected: {
+    selected: {
+      type: Object,
+    },
+    playing: {
       type: Object,
     },
     isPlaying: {

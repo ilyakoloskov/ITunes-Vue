@@ -1,15 +1,23 @@
 <template>
   <section class="main-view">
-    <i-album 
-      :album="album"
-      v-for="album in albums" :key="album.id"
-      @selectedAlbum="$emit('selectedAlbum', album)"
+    <i-albums-row
+      :selected='selected' 
+      :albums="albums"
+      :isPlaying='isPlaying'
+      :albumPlaylist="albumPlaylist"
+      :isShowPlaylist="isShowPlaylist"
+      :albumsRows="albumsRows"
+      @selectedAlbum="selectedAlbum"
+      @playTrack="$emit('playTrack', album, index)"
+      @showPlaylist="showPlaylist"
     />
   </section>
+
 </template>
 
 <script>
-import IAlbum from './IAlbum'
+
+import IAlbumsRow from './IAlbumsRow.vue'
 
 export default {
   name: 'i-section',
@@ -17,17 +25,54 @@ export default {
     albums: {
       type: Array,
       required: true
+    },
+    isPlaying: {
+      type: Boolean,
+    },
+    selected: {
+      type: Object,
+    },
+    isShowPlaylist: {
+      type: Number
+    },
+    albumsRows: {
+      type: Array
+    },
+    albumPlaylist: {
+      type: Object
+    },
+  },
+  data(){
+    return{
+      
     }
   },
   methods: {
+    selectedAlbum(album){
+      this.$emit('selectedAlbum', album)
+    },
+    showPlaylist(album, index){
+      this.$emit('showPlaylist', album, index)
+    },
+    playTrack(event){
+      this.$emit('playTrack', event)
+    },
   },
   computed: {
+
   },
   components: {
-    IAlbum
+    IAlbumsRow
+    
   },
-  emits: ["selectedAlbum"],
+  emits: ["selectedAlbum", "playTrack","playAlbum","showPlaylist"],
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="sass">
+
+
+
+
+
+</style>
