@@ -2,14 +2,16 @@
   <i-header 
     :selected='selected'
     :playing="playing"
+    :audio="audio"
     :isPlaying='isPlaying'
     :isVolume="isVolume"
-    :audio="audio"
+    :isLoopTrack="isLoopTrack"
     @updateVolume="$emit('updateVolume', $event)"
     @updateProgress="$emit('updateProgress', $event)"
     @playTrack="$emit('playTrack', $event)"
     @prevTrack="$emit('prevTrack', $event)"
-    @nextTrack="$emit('nextTrack', $event)"/>
+    @nextTrack="$emit('nextTrack', $event)"
+    @loopTrack="$emit('loopTrack')"/>
   <main class="main bg-background">
     <i-sidebar />
     <i-section
@@ -18,11 +20,10 @@
       :albumPlaylist="albumPlaylist"
       :isPlaying='isPlaying'
       :isShowPlaylist="isShowPlaylist"
+      :albumsRows="albumsRows"
       @selectedAlbum="selectedAlbum"
       @playTrack="playTrack"
       @showPlaylist="showPlaylist"
-
-      :albumsRows="albumsRows"
     /> 
   </main>
 
@@ -33,9 +34,6 @@
 import IHeader from '@/components/IHeader/IHeader.vue'
 import ISidebar from '@/components/ISidebar/ISidebar.vue'
 import ISection from '@/components/ISection/ISection.vue'
-
-
-
 
 export default {
   name: 'i-tunes',
@@ -59,6 +57,9 @@ export default {
       type: Object,
     },
     isPlaying:{
+      type: Boolean
+    },
+    isLoopTrack:{
       type: Boolean
     },
     isVolume:{
@@ -90,7 +91,16 @@ export default {
       this.$emit('showPlaylist', album, index)
     }
   },
-  emits: ["nextTrack","prevTrack", "playTrack","updateVolume",'selectedAlbum',"updateProgress","playAlbum","showPlaylist"], 
+  emits: ["nextTrack",
+          "prevTrack", 
+          "playTrack",
+          "updateVolume",
+          'selectedAlbum',
+          "updateProgress",
+          "playAlbum",
+          "showPlaylist", 
+          "loopTrack"
+    ], 
 };
 </script>
 

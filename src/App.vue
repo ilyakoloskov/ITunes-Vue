@@ -2,13 +2,15 @@
   <i-tunes
     :selected="selected"
     :albumPlaylist="albumPlaylist"
-    :isPlaying="isPlaying"
     :playing="playing"
-    :isVolume="isVolume"
-    :isShowPlaylist="isShowPlaylist"
     :albums="albums"
     :audio="audio"
     :albumsRows="albumsRows"
+
+    :isVolume="isVolume"
+    :isShowPlaylist="isShowPlaylist"
+    :isLoopTrack="isLoopTrack"
+    :isPlaying="isPlaying"
 
     @updateVolume="updateVolume"
     @updateProgress="updateProgress"
@@ -17,6 +19,7 @@
     @playTrack="playTrack"
     @nextTrack="nextTrack"
     @showPlaylist="showPlaylist"
+    @loopTrack="loopTrack"
   />
 </template>
 
@@ -32,12 +35,14 @@ export default {
     return {
       audio: new Audio(),
       trackIndex: 0,
-      isPlaying: false,
       selected: {},
       playing: {},
+
       albumPlaylist:{},
-      isVolume: 0,
+      isPlaying: false,
+      isVolume: 0.8,
       isShowPlaylist: -1,
+      isLoopTrack: false,
       // Массив альбомов
       albums: [
         {
@@ -117,7 +122,15 @@ export default {
           },
           id: 8,
         },
-        
+                {
+          artistName: "Linkin Park",
+          albumName: "Meteora",
+          albumCover: "./assets/covers/Meteora.jpeg",
+          audio: {
+            "Somewhere I Belong": "./assets/audio/Somewhere I Belong.mp3",
+          },
+          id: 6,
+        },
       ],
       styleInConsole: [
         'padding: 0.2rem 0.5rem;',
@@ -129,6 +142,7 @@ export default {
   methods: {
     // Метод выбора альбома
     selectedAlbum(album) {
+      this.audio.volume = this.isVolume
       // 1. Передаём параметром ассоциативный массив album (альбом который был выбран в компоненте) в глобальную переменню isSelected
       if(this.selected === album){
         console.log('Этот альбом уже выбран')
@@ -159,8 +173,10 @@ export default {
         console.groupCollapsed('%c%s', this.styleInConsole, `2. При выборе альбома проигрывание трека начинается с первого элемента массива`)
         console.log('%c%s', this.styleInConsole, 'trackIndex:', this.trackIndex)
         console.groupEnd()
+
         this.playing = this.selected
         this.playing.albumSelected = true
+        
       let time = setInterval(()=> { 
           this.audioCurentTime = Math.floor(this.audio.currentTime)
           this.playing.currentTime = Math.floor(this.audio.currentTime)
@@ -182,6 +198,7 @@ export default {
         this.audio.pause();
         clearInterval(time)
       }
+
     },
     nextTrack() {
       let trackArray = Object.keys(this.selected.audio);
@@ -214,9 +231,14 @@ export default {
       }
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
+    loopTrack(){
+      this.isLoopTrack = !this.isLoopTrack
+      this.audio.loop = this.isLoopTrack
+      console.log(this.audio.loop)
+    },
     updateVolume(value){
       this.isVolume = +value
-      this.audio.volume = +value
+      this.audio.volume = this.isVolume 
     },
     updateProgress(value){
       this.audio.currentTime = +value

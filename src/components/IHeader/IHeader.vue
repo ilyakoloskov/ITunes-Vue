@@ -12,7 +12,7 @@
       </div>
       <i-input
         @input="$emit('updateVolume', $event.target.value)"
-        :value="audio.volume"
+        :value="isVolume"
         class="input-volumes range"
         id="track-volume"
         min="0"
@@ -20,7 +20,7 @@
         step="0.01"
         type="range"
         :style="{
-          '--range-value-track-volume': audio.volume * 100 + '%',
+          '--range-value-track-volume': isVolume * 100 + '%',
         }"
       />
     </div>
@@ -31,6 +31,8 @@
       :isPlaying='isPlaying'
       :isVolume="isVolume"
       :audio="audio"
+      :isLoopTrack="isLoopTrack"
+      @loopTrack="$emit('loopTrack')"
       @updateVolume="$emit('updateVolume', $event)"
       @updateProgress="$emit('updateProgress', $event)"
     />
@@ -80,6 +82,9 @@ export default {
     isPlaying: {
       type: Boolean,
     },
+    isLoopTrack:{
+      type: Boolean
+    },
     isVolume:{
       type: Number,
     },
@@ -98,7 +103,7 @@ export default {
   watch: {
 
   },
-  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress"],
+  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loopTrack"],
 };
 </script>
 

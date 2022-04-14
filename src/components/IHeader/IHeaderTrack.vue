@@ -32,12 +32,16 @@
               {{ playing.artistName }}
             </h3>
             <button 
-              @click="audioLoop"
+              @click="$emit('loopTrack')"
               id="track-repeat" 
-              class="header__track-btn">
+              class="header__track-btn"
+              :class="{
+                'header__track-repeat-active': isLoopTrack
+              }"
+              >
               <svg
-                width="26"
-                height="26"
+                width="24"
+                height="25"
                 viewBox="0 0 28 28"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,8 +132,11 @@ export default {
     audio: {
       type: Object,
     },
+    isLoopTrack:{
+      type: Boolean
+    },
   },
-  emits: ["updateVolume", "updateProgress"],
+  emits: ["updateVolume", "updateProgress", "loopTrack"],
   methods: {
     updateAudioProgress() {
       setInterval(() => {
@@ -138,14 +145,6 @@ export default {
         this.test = this.time;
       }, 25);
     },
-    audioLoop(){
-      if(typeof this.audio.loop == 'boolean'){
-        this.audio.loop == true
-        console.log(this.audio.loop)
-      }else{
-        console.log('хуй')
-      }
-    }
   },
   computed: {},
   mounted() {
@@ -154,4 +153,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="sass">
+
+</style>
