@@ -5,13 +5,14 @@
     :audio="audio"
     :isPlaying='isPlaying'
     :isVolume="isVolume"
-    :isLoopTrack="isLoopTrack"
+    :isLoop="isLoop"
+      
     @updateVolume="$emit('updateVolume', $event)"
     @updateProgress="$emit('updateProgress', $event)"
     @playTrack="$emit('playTrack', $event)"
     @prevTrack="$emit('prevTrack', $event)"
     @nextTrack="$emit('nextTrack', $event)"
-    @loopTrack="$emit('loopTrack')"/>
+    @loop="loop"/>
   <main class="main bg-background">
     <i-sidebar />
     <i-section
@@ -21,6 +22,9 @@
       :isPlaying='isPlaying'
       :isShowPlaylist="isShowPlaylist"
       :albumsRows="albumsRows"
+      :playing="playing"
+      :trackIndex="trackIndex"
+      
       @selectedAlbum="selectedAlbum"
       @playTrack="playTrack"
       @showPlaylist="showPlaylist"
@@ -59,7 +63,7 @@ export default {
     isPlaying:{
       type: Boolean
     },
-    isLoopTrack:{
+    isLoop:{
       type: Boolean
     },
     isVolume:{
@@ -73,6 +77,9 @@ export default {
     },
     albumsRows: {
       type: Array
+    },
+    trackIndex: {
+      type: Number
     }
   },
   components: {
@@ -81,14 +88,17 @@ export default {
     ISidebar,
   },
   methods: {
-    selectedAlbum(album){
-      this.$emit('selectedAlbum', album)
+    selectedAlbum(album, trackIndex, key){
+      this.$emit('selectedAlbum', album, trackIndex, key)
     },
-    playTrack(event){
-      this.$emit('playTrack', event)
+    playTrack(trackIndex){
+      this.$emit('playTrack', trackIndex)
     },
     showPlaylist(album, index){
       this.$emit('showPlaylist', album, index)
+    },
+    loop(count){
+      this.$emit('loop', count)
     }
   },
   emits: ["nextTrack",
@@ -99,7 +109,7 @@ export default {
           "updateProgress",
           "playAlbum",
           "showPlaylist", 
-          "loopTrack"
+          "loop"
     ], 
 };
 </script>

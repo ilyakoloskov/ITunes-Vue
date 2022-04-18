@@ -31,8 +31,8 @@
       :isPlaying='isPlaying'
       :isVolume="isVolume"
       :audio="audio"
-      :isLoopTrack="isLoopTrack"
-      @loopTrack="$emit('loopTrack')"
+      :isLoop="isLoop"
+      @loop="loop"
       @updateVolume="$emit('updateVolume', $event)"
       @updateProgress="$emit('updateProgress', $event)"
     />
@@ -82,7 +82,7 @@ export default {
     isPlaying: {
       type: Boolean,
     },
-    isLoopTrack:{
+    isLoop:{
       type: Boolean
     },
     isVolume:{
@@ -96,6 +96,9 @@ export default {
     "i-header-track": IHeaderTrack
   },
   methods: {
+    loop(count){
+      this.$emit('loop', count)
+    }
   },
   computed: {
 
@@ -103,7 +106,7 @@ export default {
   watch: {
 
   },
-  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loopTrack"],
+  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loop"],
 };
 </script>
 

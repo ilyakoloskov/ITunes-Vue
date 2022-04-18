@@ -31,17 +31,18 @@
             >
               {{ playing.artistName }}
             </h3>
+            <!-- $emit('loop') -->
             <button 
-              @click="$emit('loopTrack')"
+              @click="loop(++countLoop)"
               id="track-repeat" 
               class="header__track-btn"
               :class="{
-                'header__track-repeat-active': isLoopTrack
+                'header__track-repeat-active': isLoop
               }"
               >
               <svg
-                width="24"
-                height="25"
+                width="28"
+                height="22"
                 viewBox="0 0 28 28"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +115,7 @@ export default {
     return {
       audioProgress: "",
       test: {},
+      countLoop: 0
     };
   },
   props: {
@@ -132,11 +134,11 @@ export default {
     audio: {
       type: Object,
     },
-    isLoopTrack:{
+    isLoop:{
       type: Boolean
     },
   },
-  emits: ["updateVolume", "updateProgress", "loopTrack"],
+  emits: ["updateVolume", "updateProgress", "loop"],
   methods: {
     updateAudioProgress() {
       setInterval(() => {
@@ -145,6 +147,9 @@ export default {
         this.test = this.time;
       }, 25);
     },
+    loop(countLoop){
+      this.$emit('loop', countLoop)
+    }
   },
   computed: {},
   mounted() {

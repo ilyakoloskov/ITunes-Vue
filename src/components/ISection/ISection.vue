@@ -7,8 +7,10 @@
       :albumPlaylist="albumPlaylist"
       :isShowPlaylist="isShowPlaylist"
       :albumsRows="albumsRows"
+      :playing="playing"
+      :trackIndex="trackIndex"
       @selectedAlbum="selectedAlbum"
-      @playTrack="$emit('playTrack', album, index)"
+      @playTrack="playTrack"
       @showPlaylist="showPlaylist"
     />
   </section>
@@ -41,6 +43,12 @@ export default {
     albumPlaylist: {
       type: Object
     },
+    playing: {
+      type: Object
+    },
+    trackIndex: {
+      type: Number
+    }
   },
   data(){
     return{
@@ -48,14 +56,14 @@ export default {
     }
   },
   methods: {
-    selectedAlbum(album){
-      this.$emit('selectedAlbum', album)
+    selectedAlbum(album, trackIndex, key){
+      this.$emit('selectedAlbum', album, trackIndex, key)
     },
     showPlaylist(album, index){
       this.$emit('showPlaylist', album, index)
     },
-    playTrack(event){
-      this.$emit('playTrack', event)
+    playTrack(trackIndex){
+      this.$emit('playTrack', trackIndex)
     },
   },
   computed: {

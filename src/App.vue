@@ -6,10 +6,10 @@
     :albums="albums"
     :audio="audio"
     :albumsRows="albumsRows"
-
+    :trackIndex="trackIndex"
     :isVolume="isVolume"
     :isShowPlaylist="isShowPlaylist"
-    :isLoopTrack="isLoopTrack"
+    :isLoop="isLoop"
     :isPlaying="isPlaying"
 
     @updateVolume="updateVolume"
@@ -19,7 +19,7 @@
     @playTrack="playTrack"
     @nextTrack="nextTrack"
     @showPlaylist="showPlaylist"
-    @loopTrack="loopTrack"
+    @loop="loop"
   />
 </template>
 
@@ -42,95 +42,76 @@ export default {
       isPlaying: false,
       isVolume: 0.8,
       isShowPlaylist: -1,
-      isLoopTrack: false,
+      isLoop: false,
       // Массив альбомов
       albums: [
         {
-          artistName: "$UICIDEBOY$",
+          artistName: "$uicideboy$",
           albumName: "Dark Side Of The Clouds",
-          albumCover: "./assets/covers/darkSideOfTheClouds.png",
+          albumCover: "./assets/covers/$uicideboy$/DarkSideOfTheClouds.png",
           audio: {
-            "Aite, Bet": "./assets/audio/Aite, bet.mp3",
-            "CHERISH THE DEAD": "./assets/audio/CHERISH THE DEAD.mp3",
+            "Aite, Bet": "./assets/audio/$uicideboy$/DarkSideOfTheClouds/Aite,bet.mp3",
           },
           id: 1,
         },
         {
-          artistName: "Slaughter To Prevail",
-          albumName: "Kostolom",
-          albumCover: "./assets/covers/kostolom.jpg",
+          artistName: "$uicideboy$",
+          albumName: "My Liver Will Handle What My Heart Can't",
+          albumCover: "./assets/covers/$uicideboy$/MyLiverWillHandleWhatMyHeartCant.png",
           audio: {
-            Bonebreaker: "./assets/audio/Bonebreaker.mp3",
+            "CHERISH THE DEAD": "./assets/audio/$uicideboy$/MyLiverWillHandleWhatMyHeartCan't/CherishTheDead.mp3",
           },
           id: 2,
         },
         {
-          artistName: "Mick Gordon",
-          albumName: "Doom",
-          albumCover: "./assets/covers/doom.jpg",
+          artistName: "Slaughter To Prevail",
+          albumName: "Kostolom",
+          albumCover: "./assets/covers/SlaughterToPrevail/Kostolom.jpg",
           audio: {
-            "Vega Core": "./assets/audio/VegaCore.mp3",
+            Bonebreaker: "./assets/audio/SlaughterToPrevail/Kostolom/Bonebreaker.mp3",
           },
           id: 3,
         },
         {
-          artistName: "Heart In Hand",
-          albumName: "Only Memories",
-          albumCover: "./assets/covers/HeartInHand.jpeg",
+          artistName: "Mick Gordon",
+          albumName: "Doom",
+          albumCover: "./assets/covers/Doom/Doom.jpg",
           audio: {
-            "Ghosts": "./assets/audio/Ghosts.mp3",
-            "September": "./assets/audio/September.mp3",
+            "Vega Core": "./assets/audio/Doom/VegaCore.mp3",
           },
           id: 4,
         },
         {
-          artistName: "$UICIDEBOY$",
-          albumName: "Dark Side Of The Clouds",
-          albumCover: "./assets/covers/darkSideOfTheClouds.png",
+          artistName: "Heart In Hand",
+          albumName: "Only Memories",
+          albumCover: "./assets/covers/HeartInHand/OnlyMemories.jpeg",
           audio: {
-            "Aite, Bet": "./assets/audio/Aite, bet.mp3",
-            "CHERISH THE DEAD": "./assets/audio/CHERISH THE DEAD.mp3",
+            "Ghosts": "./assets/audio/HeartInHand/OnlyMemories/Ghosts.mp3",
+            "September": "./assets/audio/HeartInHand/OnlyMemories/September.mp3",
           },
           id: 5,
         },
         {
-          artistName: "Linkin Park",
-          albumName: "Meteora",
-          albumCover: "./assets/covers/Meteora.jpeg",
+          artistName: "Heart In Hand",
+          albumName: "Almost There",
+          albumCover: "./assets/covers/HeartInHand/AlmostThere.jpeg",
           audio: {
-            "Somewhere I Belong": "./assets/audio/Somewhere I Belong.mp3",
+            "Almost There": "./assets/audio/HeartInHand/AlmostThere/AlmostThere.mp3",
+            "Latter": "./assets/audio/HeartInHand/AlmostThere/Latter.mp3",
+            "Sleeping Alone": "./assets/audio/HeartInHand/AlmostThere/SleepingAlone.mp3",
           },
           id: 6,
         },
         {
-          artistName: "$UICIDEBOY$",
-          albumName: "Dark Side Of The Clouds",
-          albumCover: "./assets/covers/darkSideOfTheClouds.png",
+          artistName: "Linkin Park",
+          albumName: "Meteora",
+          albumCover: "./assets/covers/LinkinPark/Meteora.jpeg",
           audio: {
-            "Aite, Bet": "./assets/audio/Aite, bet.mp3",
-            "CHERISH THE DEAD": "./assets/audio/CHERISH THE DEAD.mp3",
+            "Somewhere I Belong": "./assets/audio/LinkinPark/Meteora/SomewhereIBelong.mp3",
           },
           id: 7,
         },
-        {
-          artistName: "$UICIDEBOY$",
-          albumName: "Dark Side Of The Clouds",
-          albumCover: "./assets/covers/darkSideOfTheClouds.png",
-          audio: {
-            "Aite, Bet": "./assets/audio/Aite, bet.mp3",
-            "CHERISH THE DEAD": "./assets/audio/CHERISH THE DEAD.mp3",
-          },
-          id: 8,
-        },
-                {
-          artistName: "Linkin Park",
-          albumName: "Meteora",
-          albumCover: "./assets/covers/Meteora.jpeg",
-          audio: {
-            "Somewhere I Belong": "./assets/audio/Somewhere I Belong.mp3",
-          },
-          id: 6,
-        },
+
       ],
       styleInConsole: [
         'padding: 0.2rem 0.5rem;',
@@ -141,42 +122,40 @@ export default {
   },
   methods: {
     // Метод выбора альбома
-    selectedAlbum(album) {
-      this.audio.volume = this.isVolume
-      // 1. Передаём параметром ассоциативный массив album (альбом который был выбран в компоненте) в глобальную переменню isSelected
-      if(this.selected === album){
-        console.log('Этот альбом уже выбран')
-      }else{
-        this.isPlaying = false
-        this.selected = album;
-        this.trackIndex = 0;
-        let trackArray = Object.keys(this.selected.audio);
-        let trackName = trackArray[this.trackIndex];
-        // console.groupCollapsed('%c%s', this.styleInConsole, `5. Передаём в переменную trackName индекс массива, который являются названием трека`)
-        //   console.log('%c%s', this.styleInConsole, 'Название трека:', trackName)
-        // console.groupEnd();
-        this.selected.trackSelected = true
-        this.selected.trackName = trackName;
-        this.audio.src = this.selected.audio[trackName];
-        this.isVolume = this.audio.volume
-        console.log('Выбран другой альбом')
-      } 
-      
-      console.groupCollapsed('%c%s', this.styleInConsole,'Выбранный альбом',this.selected.artistName,'-', this.selected.albumName)
-          console.groupCollapsed('%c%s', this.styleInConsole, '1. Передаём значение выбранного алобома в глобальную переменную selected ') 
-          console.table(this.selected)
-        console.groupEnd();
-      console.groupEnd();
-      
+    selectedAlbum(album, trackIndex, key) {
+      // ШАБЛОН КОМЕНТАРИЕВ
+    // console.groupCollapsed('%c%s', this.styleInConsole, `5. Передаём в переменную trackName индекс массива, который являются названием трека`)
+      //   console.log('%c%s', this.styleInConsole, 'Название трека:', trackName)
+      // console.groupEnd();
+
+        if(this.selected === album) {
+          if(this.trackIndex != trackIndex){
+            this.isPlaying = false
+            this.trackIndex = trackIndex
+            let trackArray = Object.keys(this.selected.audio);
+            let trackName = trackArray[this.trackIndex];
+            this.selected.trackName = trackName;
+            this.audio.src = this.selected.audio[trackName]
+          }
+        }else{
+          this.trackIndex = trackIndex
+          this.isPlaying = false
+          this.selected = album;
+          let trackArray = Object.keys(this.selected.audio);
+          let trackName = trackArray[this.trackIndex];
+          this.selected.trackName = trackName;
+          console.log('key', key, 'trackName')
+          this.audio.src = this.selected.audio[trackName]
+          console.log('Выбран другой альбом')
+        }
     },
-    playTrack() {
+    playTrack(trackIndex) {
         console.groupCollapsed('%c%s', this.styleInConsole, `2. При выборе альбома проигрывание трека начинается с первого элемента массива`)
         console.log('%c%s', this.styleInConsole, 'trackIndex:', this.trackIndex)
         console.groupEnd()
 
         this.playing = this.selected
         this.playing.albumSelected = true
-        
       let time = setInterval(()=> { 
           this.audioCurentTime = Math.floor(this.audio.currentTime)
           this.playing.currentTime = Math.floor(this.audio.currentTime)
@@ -186,19 +165,19 @@ export default {
           } 
           }, 1000 )
       if (!this.isPlaying) {
-        this.isPlaying = true;
-        this.audio.play(); 
-        if(Object.keys(this.playing).length == 0){
+        if(Object.keys(this.playing).length === 0){
           this.isPlaying = false;
           console.log('Играет рандомный трек')
         }
+        this.isPlaying = true;
+        this.audio.play(); 
       }
       else {
         this.isPlaying = false;
         this.audio.pause();
         clearInterval(time)
       }
-
+    console.log(trackIndex)
     },
     nextTrack() {
       let trackArray = Object.keys(this.selected.audio);
@@ -231,11 +210,31 @@ export default {
       }
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
-    loopTrack(){
-      this.isLoopTrack = !this.isLoopTrack
-      this.audio.loop = this.isLoopTrack
-      console.log(this.audio.loop)
+    loop(count){
+      // let repeatTrack = false
+      // let repeatAlbum = false
+      // let disabledRepeat = true
+
+      if(count%1 === 0 && count%2 !== 0 && count%3 !== 0){
+        this.isLoop = true
+        this.audio.loop = this.isLoop
+        console.log('Repeat track')
+      }
+      else if(count%2 === 0 && count%1 !== 0 || count%3 !== 0){
+        this.isLoop = true
+        console.log('Repeat album')
+      }
+      else if(count > 3){
+        count = 0
+      }
+      else{
+        this.isLoop = false
+        this.audio.loop = this.isLoop
+        console.log('Reset loop')
+      }
+      console.log(count)
     },
+    mixTracks(){},
     updateVolume(value){
       this.isVolume = +value
       this.audio.volume = this.isVolume 
@@ -260,7 +259,6 @@ export default {
         }
       }
       this.albumPlaylist = album
-      console.log(index)
     },
     // ФУНКЦИЯ ДЛЯ СБРОСА ВСЕХ ГЛОБАЛЬНЫХ ДАННЫХ
     reset(){
@@ -268,7 +266,8 @@ export default {
       this.playing = {}
       this.selected = {}
       this.isPlaying = false
-      this.isShowPlaylist = -1
+      // Скрываем плейлист 
+      // this.isShowPlaylist = -1
     }
   },
   computed:{
@@ -301,3 +300,5 @@ body::-webkit-scrollbar-thumb
 
 
 </style>
+
+

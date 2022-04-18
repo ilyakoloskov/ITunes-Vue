@@ -6,13 +6,12 @@
         <i-button
           class='album__button'
           :type="selected.id === album.id && isPlaying ? 'pause' : 'play'"
-          @click.stop="$emit('selectedAlbum', album), $emit('playTrack', album)"
+          @click="playInPlayList(album, trackIndex), $emit('playTrack', album)"
         />
       </div>
-
     </div>
-    <span class="album__subname">{{ album.artistName }}</span>
-    <span class="album__name color-alternate">{{ album.albumName }}</span>
+    <span class="album__subname clip-text">{{ album.artistName }}</span>
+    <span class="album__name color-alternate clip-text">{{ album.albumName }}</span>
   </div>
 
 </template>
@@ -21,9 +20,22 @@
 import IButton from '../UI/IButton.vue';
 export default {
   components: { IButton },
+  data() {
+    return {
+      albumTrackIndex: 0,
+    }
+  },
   name: "i-album",
   methods: {
-
+    playInPlayList(album, trackIndex){
+      if(this.album != this.selected) {
+        this.$emit('selectedAlbum', album, this.albumTrackIndex)
+        console.log('if')
+      }else{
+        this.$emit('selectedAlbum', album, trackIndex)
+        console.log('else')
+      }
+    }
   },
   props: {
     album: {
@@ -36,11 +48,14 @@ export default {
     selected: {
       type: Object,
     },
-
-    
+    trackIndex: {
+      type: Number
+    }
   },
   emits: ["playTrack", "selectedAlbum", "showPlaylist"],
+  computed: {
 
+  }
 };
 </script>
 
