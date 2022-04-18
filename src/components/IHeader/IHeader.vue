@@ -59,7 +59,9 @@
         placeholder="Search"
       />
     </div>
+
   </header>
+  
 </template>
 
 <script>
