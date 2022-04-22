@@ -1,5 +1,6 @@
 <template>
-  <span id="track-time-end" class="header__track-time">
+  <span
+   id="track-time-end" class="header__track-time">
     {{ minutes }}:{{ seconds }}
   </span>
 </template>

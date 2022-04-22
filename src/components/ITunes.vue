@@ -5,8 +5,11 @@
     :audio="audio"
     :isPlaying='isPlaying'
     :isVolume="isVolume"
-    :isLoop="isLoop"
-      
+    :isLoopTrack="isLoopTrack"
+    :isLoopAlbum="isLoopAlbum" 
+    :isMixTracks="isMixTracks"
+
+    @mixTracks="mixTracks"
     @updateVolume="$emit('updateVolume', $event)"
     @updateProgress="$emit('updateProgress', $event)"
     @playTrack="$emit('playTrack', $event)"
@@ -63,7 +66,10 @@ export default {
     isPlaying:{
       type: Boolean
     },
-    isLoop:{
+    isLoopTrack:{
+      type: Boolean
+    },
+    isLoopAlbum:{
       type: Boolean
     },
     isVolume:{
@@ -80,6 +86,9 @@ export default {
     },
     trackIndex: {
       type: Number
+    },
+    isMixTracks: {
+      type: Boolean
     }
   },
   components: {
@@ -99,6 +108,9 @@ export default {
     },
     loop(count){
       this.$emit('loop', count)
+    },
+    mixTracks(){
+      this.$emit('mixTracks')
     }
   },
   emits: ["nextTrack",
@@ -109,7 +121,8 @@ export default {
           "updateProgress",
           "playAlbum",
           "showPlaylist", 
-          "loop"
+          "loop",
+          "mixTracks"
     ], 
 };
 </script>

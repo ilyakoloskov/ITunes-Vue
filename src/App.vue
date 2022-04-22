@@ -9,9 +9,12 @@
     :trackIndex="trackIndex"
     :isVolume="isVolume"
     :isShowPlaylist="isShowPlaylist"
-    :isLoop="isLoop"
+    :isLoopTrack="isLoopTrack"
+    :isLoopAlbum="isLoopAlbum"
     :isPlaying="isPlaying"
+    :isMixTracks="isMixTracks"
 
+    @mixTracks="mixTracks"
     @updateVolume="updateVolume"
     @updateProgress="updateProgress"
     @selectedAlbum="selectedAlbum"
@@ -39,10 +42,12 @@ export default {
       playing: {},
 
       albumPlaylist:{},
-      isPlaying: false,
       isVolume: 0.8,
       isShowPlaylist: -1,
-      isLoop: false,
+      isMixTracks: false,
+      isPlaying: false,
+      isLoopTrack: false,
+      isLoopAlbum: false,
       // Массив альбомов
       albums: [
         {
@@ -111,7 +116,15 @@ export default {
           },
           id: 7,
         },
-
+        {
+          artistName: "Rozz Dyliams",
+          albumName: "SUS PhiXioN",
+          albumCover: "./assets/covers/RozzDyliams/Criminy.jpeg",
+          audio: {
+            "Criminy [Chopped & Screwed] PhiXioN": "./assets/audio/RozzDyliams/Criminy/Criminy.mp3",
+          },
+          id: 8,
+        },
       ],
       styleInConsole: [
         'padding: 0.2rem 0.5rem;',
@@ -155,7 +168,7 @@ export default {
         console.groupEnd()
 
         this.playing = this.selected
-        this.playing.albumSelected = true
+        // this.playing.albumSelected = true
       let time = setInterval(()=> { 
           this.audioCurentTime = Math.floor(this.audio.currentTime)
           this.playing.currentTime = Math.floor(this.audio.currentTime)
@@ -169,6 +182,7 @@ export default {
           this.isPlaying = false;
           console.log('Играет рандомный трек')
         }
+        console.log(Object.keys(this.playing))
         this.isPlaying = true;
         this.audio.play(); 
       }
@@ -184,8 +198,6 @@ export default {
       let trackName = trackArray[++this.trackIndex];
       this.selected.trackName = trackName;
       this.audio.src = this.selected.audio[trackName];
-      console.log(trackArray)
-      console.log(this.selected.trackName);
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
       if(trackArray.length - 1  < this.trackIndex){
         this.reset()
@@ -211,30 +223,35 @@ export default {
       this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
     loop(count){
-      // let repeatTrack = false
-      // let repeatAlbum = false
-      // let disabledRepeat = true
-
-      if(count%1 === 0 && count%2 !== 0 && count%3 !== 0){
-        this.isLoop = true
-        this.audio.loop = this.isLoop
+      if(count === 1){
+        let album = Object.keys(this.selected.audio)
+        let albumLength = Object.keys(this.selected.audio).length
+        let lastTrack = album[album.length - 1]
+        this.isLoopAlbum = true
+        if(albumLength === this.trackIndex){
+          this.trackIndex = 0
+          console.log('if ed3d343d34d34:', this.trackIndex)
+        }
+        console.log('length',Object.keys(this.selected.audio).length - 1, 'trackIndex', this.trackIndex, 'lastTrack', lastTrack)
+        // if(albumLength === this.trackIndex){
+        //   console.log('Repeat album:', albumLength, this.trackIndex)
+        //   this.trackIndex = 0
+        // }
+        // console.log('Repeat album:', lastTrack, album[this.trackIndex])
+      }else if(count === 2){
+        this.isLoopTrack = true
         console.log('Repeat track')
+      }else if(count >= 2){
+        this.isLoopTrack = false
+        this.isLoopAlbum = false
+        console.log('Repeat false')
       }
-      else if(count%2 === 0 && count%1 !== 0 || count%3 !== 0){
-        this.isLoop = true
-        console.log('Repeat album')
-      }
-      else if(count > 3){
-        count = 0
-      }
-      else{
-        this.isLoop = false
-        this.audio.loop = this.isLoop
-        console.log('Reset loop')
-      }
-      console.log(count)
+      this.audio.loop = this.isLoopTrack
     },
-    mixTracks(){},
+    mixTracks(){
+      this.isMixTracks = !this.isMixTracks
+      console.log(this.isMixTracks)
+    },
     updateVolume(value){
       this.isVolume = +value
       this.audio.volume = this.isVolume 

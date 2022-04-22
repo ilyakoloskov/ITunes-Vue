@@ -31,7 +31,11 @@
       :isPlaying='isPlaying'
       :isVolume="isVolume"
       :audio="audio"
-      :isLoop="isLoop"
+      :isLoopTrack="isLoopTrack"
+      :isLoopAlbum="isLoopAlbum"
+      :isMixTracks="isMixTracks"
+
+      @mixTracks="$emit('mixTracks')"
       @loop="loop"
       @updateVolume="$emit('updateVolume', $event)"
       @updateProgress="$emit('updateProgress', $event)"
@@ -84,11 +88,17 @@ export default {
     isPlaying: {
       type: Boolean,
     },
-    isLoop:{
+    isLoopTrack:{
+      type: Boolean
+    },
+    isLoopAlbum:{
       type: Boolean
     },
     isVolume:{
       type: Number,
+    },
+    isMixTracks:{
+      type: Boolean
     },
     audio:{
       type: Object
@@ -108,7 +118,7 @@ export default {
   watch: {
 
   },
-  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loop"],
+  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loop", "mixTracks"],
 };
 </script>
 

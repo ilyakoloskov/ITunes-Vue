@@ -69,7 +69,8 @@ body
             display: flex
             justify-content: space-between
             flex-direction: column
-            padding: 3px 10px
+            padding: 5px 10px 0px
+            gap: 3px
         &-time
             color: $color-alternate
             font-size: 12px
@@ -81,15 +82,17 @@ body
             path
                 fill: $color-alternate
         &-btn
-            height: 26px
+            height: 20px
             width: 26px
-        &-repeat-active
-            svg
-                background-color: $color-header-btn-active
-                border-radius: 5px
+            vertical-align: middle
+            &-active
+                background-color: $color-header-btn-active !important
+                svg
+                    
+                    border-radius: 5px
 
-            path
-                fill: $color-secondary
+                path
+                    fill: $color-secondary !important
        
     &__progress
         height: 5px
@@ -141,7 +144,7 @@ body
 
 .main
     display: grid
-    grid-template-columns: 200px 7fr    
+    grid-template-columns: 180px 7fr    
     position: relative
     z-index: 10
    
@@ -189,22 +192,27 @@ body
     padding: 1em 0 0 0
     flex-grow: 2
     background-color: $color-secondary
+    &__media
+        &-list
+            margin-bottom: 20px
 
 .list
     &-name
         padding: 5px 10px
         display: inline-block
-        margin-bottom: 10px
+        margin-bottom: 5px
     &__li
-        padding: 0px 20px
         display: flex
         align-items: center
         gap: 7px
         &:hover
             background-color: $color-primary
-    & a
-        display: block
-
+    &__link
+        display: flex
+        align-items: center
+        gap: 5px
+        width: 100%
+        padding: 5px 10px 5px 20px
 
 
 
@@ -214,6 +222,8 @@ body
         color: inherit
         path
             fill: $color-alternate
+        svg
+            vertical-align: middle
 // .volumes
 
 
