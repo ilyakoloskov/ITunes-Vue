@@ -18,20 +18,22 @@
     @loop="loop"/>
   <main class="main bg-background">
     <i-sidebar />
-    <i-section
-      :selected='selected' 
-      :albums="albums"
-      :albumPlaylist="albumPlaylist"
-      :isPlaying='isPlaying'
-      :isShowPlaylist="isShowPlaylist"
-      :albumsRows="albumsRows"
-      :playing="playing"
-      :trackIndex="trackIndex"
-      
-      @selectedAlbum="selectedAlbum"
-      @playTrack="playTrack"
-      @showPlaylist="showPlaylist"
-    /> 
+    <section class="main-view">
+      <i-section
+        :selected='selected' 
+        :albums="albums"
+        :albumPlaylist="albumPlaylist"
+        :isPlaying='isPlaying'
+        :isShowPlaylist="isShowPlaylist"
+        :albumsRows="albumsRows"
+        :playing="playing"
+        :trackIndex="trackIndex"
+        
+        @selectedAlbum="selectedAlbum"
+        @playTrack="playTrack"
+        @showPlaylist="showPlaylist"
+      /> 
+    </section>
   </main>
 
 
