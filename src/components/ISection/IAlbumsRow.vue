@@ -26,7 +26,6 @@
         @selectedAlbum="selectedAlbum"
         @playTrack="playTrack"
       />
-      
     </transition-group>
   </div>
 

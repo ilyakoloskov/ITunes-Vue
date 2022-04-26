@@ -4,15 +4,12 @@ import {createRouter, createWebHistory} from "vue-router"
 
 const routes = [
     {
-        path: "/",
-        component: AlbumsPage
-    },
-    {
         path: "/albums",
-        component: AlbumsPage
+        component: AlbumsPage,
+        alias: '/'
     },
     {
-        path: "/artist",
+        path: "/artists",
         component: ArtistsPage
     }
 ]

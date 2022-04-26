@@ -161,6 +161,7 @@ export default {
           this.audio.src = this.selected.audio[trackName]
           console.log('Выбран другой альбом')
         }
+
     },
     playTrack(trackIndex) {
         console.groupCollapsed('%c%s', this.styleInConsole, `2. При выборе альбома проигрывание трека начинается с первого элемента массива`)
@@ -230,14 +231,9 @@ export default {
         this.isLoopAlbum = true
         if(albumLength === this.trackIndex){
           this.trackIndex = 0
-          console.log('if ed3d343d34d34:', this.trackIndex)
+          console.log('if:', this.trackIndex)
         }
         console.log('length',Object.keys(this.selected.audio).length - 1, 'trackIndex', this.trackIndex, 'lastTrack', lastTrack)
-        // if(albumLength === this.trackIndex){
-        //   console.log('Repeat album:', albumLength, this.trackIndex)
-        //   this.trackIndex = 0
-        // }
-        // console.log('Repeat album:', lastTrack, album[this.trackIndex])
       }else if(count === 2){
         this.isLoopTrack = true
         console.log('Repeat track')
@@ -295,24 +291,32 @@ export default {
       }
       return rows
     }
-  }
+  },
+  //   mounted() {
+  //     this.selected = JSON.parse(localStorage.getItem(this.selected))
+  // },
+//   watch: {
+//   selected(newValue) {
+//     localStorage.setItem(this.selected, JSON.stringify(newValue));
+//   }
+// }
 };
 </script>
 <style lang="sass">
-body
-  overflow-y: scroll
+// body
+//   overflow-y: scroll !important
 
 body::-webkit-scrollbar 
-  width: 5px
+  width: 5px 
 
  
 body::-webkit-scrollbar-track 
-  background-color: rgba(38,38,38,1)
+  background-color: rgba(38,38,38,1) 
 
  
 body::-webkit-scrollbar-thumb 
-  background-color: rgba(151,151,151, 1)
-  border-radius: 5px
+  background-color: rgba(151,151,151, 1) 
+  border-radius: 5px 
 
 
 

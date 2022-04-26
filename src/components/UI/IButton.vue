@@ -115,41 +115,6 @@
       </g>
     </svg>
     <!-- REPEAT -->
-    <!-- <svg v-if="type == 'repeat'" viewBox="0 0 256 256">
-      <rect width="256" height="256" fill="none" />
-      <polyline
-        fill="none"
-        stroke="#000"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
-        points="200 88 224 64 200 40"
-      />
-      <path
-        fill="none"
-        stroke="#000"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
-        d="M32,128A64,64,0,0,1,96,64H224"
-      />
-      <polyline
-        fill="none"
-        stroke="#000"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
-        points="56 168 32 192 56 216"
-      />
-      <path
-        fill="none"
-        stroke="#000"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
-        d="M224,128a64,64,0,0,1-64,64H32"
-      />
-    </svg> -->
     <svg
       v-if="type == 'repeat'"
       width="20"

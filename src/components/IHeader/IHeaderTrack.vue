@@ -56,7 +56,7 @@
               />
             <h3
               id="track-name"
-              class="header__track-name color-alternate display-3"
+              class="header__track-name color-alternate display-5"
             >
               {{ playing.trackName }}
             </h3>

@@ -70,7 +70,7 @@ body
             justify-content: space-between
             flex-direction: column
             padding: 5px 10px 0px
-            gap: 3px
+            gap: 2px
         &-time
             color: $color-alternate
             font-size: 12px
@@ -195,15 +195,15 @@ body
     &__media
         &-list
             margin-bottom: 20px
-
+        &-library
+            position: sticky
+            top: 65px
 .list
     &-name
         padding: 5px 10px
         display: inline-block
         margin-bottom: 5px
-    &__li
-        display: flex
-        align-items: center
+    &__item
         gap: 7px
         &:hover
             background-color: $color-primary
