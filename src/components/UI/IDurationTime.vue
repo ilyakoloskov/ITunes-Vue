@@ -1,7 +1,7 @@
 <template>
   <span
-   id="track-time-end" class="header__track-time">
-    {{ minutes }}:{{ seconds }}
+    id="track-time-end" class="header__track-time">
+      {{ minutes }}:{{ seconds  }}
   </span>
 </template>
 
@@ -44,4 +44,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="sass" scoped></style>

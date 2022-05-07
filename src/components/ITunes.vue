@@ -8,14 +8,21 @@
     :isLoopTrack="isLoopTrack"
     :isLoopAlbum="isLoopAlbum" 
     :isMixTracks="isMixTracks"
+    :albums="albums"
+    :searchQuery="searchQuery"
+    :search="search"
+    :trackIndex="trackIndex"
 
+    @selectedAlbum="selectedAlbum"
     @mixTracks="mixTracks"
     @updateVolume="$emit('updateVolume', $event)"
     @updateProgress="$emit('updateProgress', $event)"
     @playTrack="$emit('playTrack', $event)"
     @prevTrack="$emit('prevTrack', $event)"
     @nextTrack="$emit('nextTrack', $event)"
-    @loop="loop"/>
+    @loop="loop"
+    @updateSearchQuery="updateSearchQuery"
+    />
   <main class="main bg-background">
     <i-sidebar />
     <section class="main-view">
@@ -65,6 +72,12 @@ export default {
     playing: {
       type: Object,
     },
+    searchQuery: {
+      type: [String, Number],
+    },
+    search: {
+      type: Array
+    },
     isPlaying:{
       type: Boolean
     },
@@ -113,6 +126,9 @@ export default {
     },
     mixTracks(){
       this.$emit('mixTracks')
+    },
+    updateSearchQuery(event){
+      this.$emit('updateSearchQuery', event)
     }
   },
   emits: ["nextTrack",
@@ -124,7 +140,8 @@ export default {
           "playAlbum",
           "showPlaylist", 
           "loop",
-          "mixTracks"
+          "mixTracks",
+          "updateSearchQuery",
     ], 
 };
 </script>

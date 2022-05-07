@@ -126,6 +126,7 @@ body
         display: flex
         justify-content: space-between
         align-items: center
+        position: relative
         &-list
             width: 40px
             height: 30px
@@ -180,9 +181,13 @@ body
         background-color: $color-background
         // border-top: 1px solid RGBA(50,50,50,1)
         // border-bottom: 1px solid RGBA(50,50,50,1)
-
         & .album
             padding: 20px
+    &__info
+        display: flex
+        gap: 8px
+        flex-direction: column
+
     &__img-wrap
         border-radius: 5px
         overflow: hidden

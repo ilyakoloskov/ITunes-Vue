@@ -10,8 +10,10 @@
         />
       </div>
     </div>
-    <span class="album__subname clip-text">{{ album.artistName }}</span>
-    <span class="album__name color-alternate clip-text">{{ album.albumName }}</span>
+    <div class='album__info'>
+      <span class="album__subname clip-text">{{ album.artistName }}</span>
+      <span class="album__name color-alternate clip-text">{{ album.albumName }}</span>
+    </div>
   </div>
 
 </template>

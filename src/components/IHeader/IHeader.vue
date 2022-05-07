@@ -61,7 +61,19 @@
         class="header__helper-search search"
         type="text"
         placeholder="Search"
+        :value="searchQuery" @input="updateSearchQuery"
       />
+      <i-search
+        v-if="searchQuery"
+        :albums="search"
+        :selected='selected'
+        :trackIndex="trackIndex"
+        :isPlaying='isPlaying'
+
+        @selectedAlbum="selectedAlbum"
+        @playTrack="playTrack"
+      >
+      </i-search>
     </div>
 
   </header>
@@ -70,12 +82,14 @@
 
 <script>
 import IHeaderTrack from '@/components/IHeader/IHeaderTrack.vue'
+import ISearch from '@/components/UI/ISearch.vue';
 
 export default {
   name: "i-header",
   data() {
     return {
-      audioProgress: ''
+      audioProgress: '',
+      isShowSearch: false,
     };
   },
   props: {
@@ -84,6 +98,9 @@ export default {
     },
     playing: {
       type: Object,
+    },
+    search: {
+      type: Array
     },
     isPlaying: {
       type: Boolean,
@@ -102,15 +119,38 @@ export default {
     },
     audio:{
       type: Object
-    }
+    },
+    albums: {
+      type: Object
+    },
+    searchQuery: {
+      type: [String, Number],
+    },
+    trackIndex: {
+      type: Number
+    },
   },
   components: {
-    "i-header-track": IHeaderTrack
+     IHeaderTrack
+    , ISearch
   },
   methods: {
     loop(count){
       this.$emit('loop', count)
-    }
+    },
+    showSearch(){
+      this.isShowSearch = true
+      console.log('12')
+    },
+    updateSearchQuery(event){
+      this.$emit('updateSearchQuery', event.target.value)
+    },
+    selectedAlbum(album, trackIndex, key){
+      this.$emit('selectedAlbum', album, trackIndex, key)
+    },
+    playTrack(trackIndex){
+      this.$emit('playTrack', trackIndex)
+    },
   },
   computed: {
 
@@ -118,7 +158,16 @@ export default {
   watch: {
 
   },
-  emits: ["nextTrack","prevTrack", "playTrack", "updateVolume", "updateProgress", "loop", "mixTracks"],
+  emits: [
+    "nextTrack",
+    "prevTrack",
+    "playTrack",
+    "updateVolume",
+    "updateProgress",
+    "loop",
+    "mixTracks",
+    "updateSearchQuery"
+  ],
 };
 </script>
 

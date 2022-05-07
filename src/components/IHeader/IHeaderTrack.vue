@@ -99,12 +99,14 @@
         </g>
       </svg>
     </div>
+
   </div>
 
 </template>
 
 <script>
 import IDurationTime from '../UI/IDurationTime.vue';
+
 export default {
   components: { IDurationTime },
   name: "i-header-track",
@@ -147,7 +149,7 @@ export default {
       setInterval(() => {
         this.audioProgress =
           (this.audio.currentTime / this.audio.duration) * 100;
-        this.test = this.time;
+        // this.test = this.time;
       }, 25);
     },
     loop(countLoop){
@@ -159,7 +161,6 @@ export default {
       }else{
         this.$emit('loop', countLoop)
       }
-      console.log(countLoop)
     },
     resetLoop(){
       this.countLoop = 0

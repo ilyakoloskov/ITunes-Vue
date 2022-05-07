@@ -7,6 +7,8 @@
     :audio="audio"
     :albumsRows="albumsRows"
     :trackIndex="trackIndex"
+    :searchQuery="searchQuery"
+    :search="search"
     :isVolume="isVolume"
     :isShowPlaylist="isShowPlaylist"
     :isLoopTrack="isLoopTrack"
@@ -23,6 +25,8 @@
     @nextTrack="nextTrack"
     @showPlaylist="showPlaylist"
     @loop="loop"
+    @updateSearchQuery="updateSearchQuery"
+
   />
 </template>
 
@@ -40,6 +44,7 @@ export default {
       trackIndex: 0,
       selected: {},
       playing: {},
+      searchQuery: '',
 
       albumPlaylist:{},
       isVolume: 0.8,
@@ -140,7 +145,7 @@ export default {
     // console.groupCollapsed('%c%s', this.styleInConsole, `5. Передаём в переменную trackName индекс массива, который являются названием трека`)
       //   console.log('%c%s', this.styleInConsole, 'Название трека:', trackName)
       // console.groupEnd();
-
+      
         if(this.selected === album) {
           if(this.trackIndex != trackIndex){
             this.isPlaying = false
@@ -161,7 +166,6 @@ export default {
           this.audio.src = this.selected.audio[trackName]
           console.log('Выбран другой альбом')
         }
-
     },
     playTrack(trackIndex) {
         console.groupCollapsed('%c%s', this.styleInConsole, `2. При выборе альбома проигрывание трека начинается с первого элемента массива`)
@@ -196,17 +200,28 @@ export default {
     },
     nextTrack() {
       let trackArray = Object.keys(this.selected.audio);
-      let trackName = trackArray[++this.trackIndex];
-      this.selected.trackName = trackName;
-      this.audio.src = this.selected.audio[trackName];
-      this.isPlaying == false ? this.audio.pause() : this.audio.play()
-      if(trackArray.length - 1  < this.trackIndex){
-        this.reset()
+      if(this.isLoopTrack){
+        let trackName = trackArray[this.trackIndex];
+        this.selected.trackName = trackName;
+        this.audio.src = this.selected.audio[trackName];
+      }else{
+        let trackName = trackArray[++this.trackIndex];
+        this.selected.trackName = trackName;
+        this.audio.src = this.selected.audio[trackName];
+
+        if(trackArray.length - 1 < this.trackIndex && !this.isLoopAlbum){
+          this.reset()
+        }
+        if(this.isLoopAlbum && this.trackIndex == trackArray.length){
+          this.selectedAlbum(this.selected, 0)
+          this.playTrack()
+        }
       }
+        this.isPlaying == false ? this.audio.pause() : this.audio.play()
     },
     prevTrack() {
       let trackArray = Object.keys(this.selected.audio);
-      if(this.audio.currentTime > 3){
+      if(this.audio.currentTime > 3 || this.isLoopTrack){
         let trackName = trackArray[this.trackIndex];
         this.selected.trackName = trackName;
         this.audio.src = this.selected.audio[trackName];
@@ -225,17 +240,10 @@ export default {
     },
     loop(count){
       if(count === 1){
-        let album = Object.keys(this.selected.audio)
-        let albumLength = Object.keys(this.selected.audio).length
-        let lastTrack = album[album.length - 1]
         this.isLoopAlbum = true
-        if(albumLength === this.trackIndex){
-          this.trackIndex = 0
-          console.log('if:', this.trackIndex)
-        }
-        console.log('length',Object.keys(this.selected.audio).length - 1, 'trackIndex', this.trackIndex, 'lastTrack', lastTrack)
       }else if(count === 2){
         this.isLoopTrack = true
+        this.isLoopAlbum = false
         console.log('Repeat track')
       }else if(count >= 2){
         this.isLoopTrack = false
@@ -281,6 +289,9 @@ export default {
       this.isPlaying = false
       // Скрываем плейлист 
       // this.isShowPlaylist = -1
+    },
+    updateSearchQuery(searchValue){
+      this.searchQuery = searchValue
     }
   },
   computed:{
@@ -290,16 +301,15 @@ export default {
         rows.push(this.albums.slice(i, i + 6))
       }
       return rows
+    },
+    search(){
+      return this.albums.filter(album => album.artistName.includes(this.searchQuery))
     }
   },
-  //   mounted() {
-  //     this.selected = JSON.parse(localStorage.getItem(this.selected))
-  // },
-//   watch: {
-//   selected(newValue) {
-//     localStorage.setItem(this.selected, JSON.stringify(newValue));
-//   }
-// }
+    mounted() {
+      this.audio.volume = this.isVolume
+      // this.selected = JSON.parse(localStorage.getItem(this.selected))
+  },
 };
 </script>
 <style lang="sass">

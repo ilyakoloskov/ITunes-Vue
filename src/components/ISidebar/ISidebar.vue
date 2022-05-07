@@ -81,6 +81,26 @@
           </li>
         </ul>
       </div>
+      <!-- <div class="sidebar__media-list">
+        <span class="list-name color-alternate display-4">Что сделать</span>
+        <ul class="list display-3">
+          <li class="list__li">
+            <a href="#" class="list__link">
+              <span class="list__link-text">Поиск</span>
+            </a>
+          </li>
+          <li class="list__li">
+            <a href="#" class="list__link">
+              <span class="list__link-text">Перемешку треков</span>
+            </a>
+          </li>
+          <li class="list__li">
+            <a href="#" class="list__link">
+              <span class="list__link-text">Идея с функцией которая принимает параметром ++trackIndex или --</span>
+            </a>
+          </li>
+        </ul>
+      </div> -->
     </div>
   </div>
 </template>
