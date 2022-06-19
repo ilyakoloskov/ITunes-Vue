@@ -9,10 +9,7 @@
       </ul>
     </sidebar>
     <div class="artist-page__main">
-        {{albums}}
-      <i-play-list
-        
-      > </i-play-list>
+        Under development 
     </div>
   </div>
 </template>
