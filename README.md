@@ -24,5 +24,5 @@ npm install
 Запуск проекта:
 ```bash
 # npm
-npm run dev
+npm run serve
 ```
