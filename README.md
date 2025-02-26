@@ -19,10 +19,10 @@ iTunes-Vue — это простое приложение, которое исп
 Установите зависимости:
 ```bash
 # npm
-npm run dev
+npm install
 ```
 Запуск проекта:
 ```bash
 # npm
-npm run serve
+npm run dev
 ```
